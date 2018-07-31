@@ -9,8 +9,14 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Button,
+  FlatList,
+  TouchableHighlight
 } from 'react-native';
+let SQLite = require('react-native-sqlite-storage');
+
+let db = SQLite.openDatabase({name: 'studentdb', createFromLocation : '~db.sqlite'}, ()=>{}, ()=>{});
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -21,6 +27,13 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      students: null
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -33,8 +46,27 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
+        <Button title="Load" onPress={this.handleButtonPress}></Button>
+        {this.state.students ? 
+          this.state.students.map((x) => (
+            <Text>
+              {x.id} {x.email} {x.name} {x.state}
+            </Text>
+          ))
+          : null}
       </View>
     );
+  }
+
+  handleButtonPress = () => {
+    db.transaction((tx) => {
+      tx.executeSql('SELECT * FROM students ORDER BY name', [], (tx, results) => {
+        alert(JSON.stringify(results.rows.raw()))
+        this.setState({
+          students: results.rows.raw(),
+        })
+      })
+    });
   }
 }
 
