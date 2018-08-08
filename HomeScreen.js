@@ -16,6 +16,11 @@ export const HomeScreen = (props) => (
                 movies: sampleData()
             })
         }/>
+        <Button title="Add new movie" onPress={() => 
+            props.navigation.navigate('AddMovieScreen', {
+                movies: sampleData()
+            })
+        }/>
     </View>
 );
 
