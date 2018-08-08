@@ -7,13 +7,16 @@ import {
     Button
 } from "react-native";
 import { sampleData } from './sampleData';
+import { Database } from './database';
 
 export const HomeScreen = (props) => (
     <View style={styles.view}>
         <Text>Home Screen</Text>
         <Button title="View movies" onPress={() => 
-            props.navigation.navigate('MovieListScreen', {
-                movies: sampleData()
+            Database.retrieveMovie((movies) => {
+                props.navigation.navigate('MovieListScreen', {
+                    movies: movies
+                })
             })
         }/>
         <Button title="Add new movie" onPress={() => 

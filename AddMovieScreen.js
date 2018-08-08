@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Database } from './database';
 import {
     Alert,
     View,
@@ -25,8 +26,8 @@ export class AddMovieScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: null,
-            language: null,
+            title: "",
+            language: LANGUAGES[0],
             release_date: new Date()
         }
     }
@@ -47,9 +48,26 @@ export class AddMovieScreen extends Component {
                     {LANGUAGES.map((x, index) => <Picker.Item key={index} label={x} value={x}/>)}
                 </Picker>
                 <TouchableWithoutFeedback onPress={this.handlePickDate}>
-                    <Text>{this.state.release_date.toString()}</Text>
+                    <View>
+                        <Text>
+                            {this.state.release_date.toString()}
+                        </Text>
+                    </View>
                 </TouchableWithoutFeedback>
-                <Button onPress={() => alert("Hey")} title="Submit"/>
+                <Button onPress={() => {
+                    if(!this.state.title) {
+                        Alert.alert("Please fill in Movie Title.")
+                        return;
+                    }
+                    Database.insertMovie({
+                        title: this.state.title,
+                        language: this.state.language,
+                        release_date: this.state.release_date.getTime()
+                    }, (result) => {
+                        Alert.alert("Successfully added the movie into database!");
+                        this.props.navigation.goBack();
+                    })
+                }} title="Submit"/>
             </View>
         );
     }

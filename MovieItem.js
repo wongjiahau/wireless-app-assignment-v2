@@ -5,12 +5,15 @@ import {
     StyleSheet,
     TouchableOpacity
 } from "react-native";
+import { Database } from './database';
 
 export const MovieItem = (props) => (
     <TouchableOpacity onPress={() => {
-        props.navigation.navigate("MovieScreen", {
-            movie: props.movie
-        });
+        Database.retrieveSpecificMovie(props.movie.id, (result) => {
+            props.navigation.navigate("MovieScreen", {
+                movie: result[0]
+            });
+        })
     }}>
         <View style={styles.view}>
             <Text style={styles.title}>{props.movie.title}</Text>

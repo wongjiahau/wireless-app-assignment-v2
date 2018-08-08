@@ -17,6 +17,7 @@ import {
 import { MovieListScreen } from './MovieListScreen';
 import { sampleData } from './sampleData';
 import { Main } from './Main';
+import { Database } from './database';
 let SQLite = require('react-native-sqlite-storage');
 
 let db = SQLite.openDatabase({name: 'moviedb',createFromLocation : '~db.sqlite'}, ()=>{}, ()=>{});
@@ -40,8 +41,6 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Main/>
-        <MovieListScreen movies={sampleData()}/>
         <Text style={styles.welcome}>
           Welcome to React Native
         </Text>
@@ -52,26 +51,25 @@ export default class App extends Component<Props> {
           {instructions}
         </Text>
         <Button title="Load" onPress={this.handleButtonPress}></Button>
-        {this.state.students ?
-          this.state.students.map((x) => (
-            <Text>
-              {x.id} {x.email} {x.name} {x.state}
-            </Text>
-          ))
-          : null}
+        <Text>
+          {JSON.stringify(this.state.students)}
+        </Text>
       </View>
     );
   }
 
   handleButtonPress = () => {
-    db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM students', [], (tx, results) => {
-        alert(JSON.stringify(results.rows.raw()))
-        this.setState({
-          students: results.rows.raw(),
-        })
-      })
-    });
+    Database.retrieveMovie((result) => {
+      this.setState({students: result})
+    })
+    // db.transaction((tx) => {
+    //   tx.executeSql('SELECT * FROM movies', [], (tx, results) => {
+    //     alert(JSON.stringify(results.rows.raw()))
+    //     this.setState({
+    //       students: results.rows.raw(),
+    //     })
+    //   })
+    // });
   }
 }
 
