@@ -1,3 +1,7 @@
+/**
+ * Name: Wong Jia Hau
+ * Reg. No.: 1500181
+ */
 const SQLite = require('react-native-sqlite-storage');
 
 const db = SQLite.openDatabase({name: 'moviedb',createFromLocation : '~db.sqlite'}, ()=>{}, ()=>{});

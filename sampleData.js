@@ -1,3 +1,7 @@
+/**
+ * Name: Wong Jia Hau
+ * Reg. No.: 1500181
+ */
 export const sampleData = () => `
 Ironman2|English|584841600
 Transformer|English|1183420800

@@ -1,3 +1,7 @@
+/**
+ * Name: Wong Jia Hau
+ * Reg. No.: 1500181
+ */
 import React, { Component } from 'react';
 import {
     View,

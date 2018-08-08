@@ -1,3 +1,7 @@
+/**
+ * Name: Wong Jia Hau
+ * Reg. No.: 1500181
+ */
 export function formatDate(dateObj) {
   let day = dateObj.getDay();
   let date = dateObj.getDate();
