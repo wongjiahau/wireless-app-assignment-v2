@@ -14,9 +14,11 @@ import {
   FlatList,
   TouchableHighlight
 } from 'react-native';
+import { MovieListScreen } from './MovieListScreen';
+import { sampleData } from './sampleData';
 let SQLite = require('react-native-sqlite-storage');
 
-let db = SQLite.openDatabase({name: 'studentdb', createFromLocation : '~db.sqlite'}, ()=>{}, ()=>{});
+let db = SQLite.openDatabase({name: 'moviedb',createFromLocation : '~db.sqlite'}, ()=>{}, ()=>{});
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -37,17 +39,18 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <MovieListScreen movies={sampleData()}/>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome to React Native
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit App.js
+          To get starteded, edit App.js
         </Text>
         <Text style={styles.instructions}>
           {instructions}
         </Text>
         <Button title="Load" onPress={this.handleButtonPress}></Button>
-        {this.state.students ? 
+        {this.state.students ?
           this.state.students.map((x) => (
             <Text>
               {x.id} {x.email} {x.name} {x.state}
@@ -60,7 +63,7 @@ export default class App extends Component<Props> {
 
   handleButtonPress = () => {
     db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM students ORDER BY name', [], (tx, results) => {
+      tx.executeSql('SELECT * FROM students', [], (tx, results) => {
         alert(JSON.stringify(results.rows.raw()))
         this.setState({
           students: results.rows.raw(),
