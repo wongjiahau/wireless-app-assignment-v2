@@ -6,11 +6,8 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     TouchableOpacity,
-    Button
 } from "react-native";
-import { sampleData } from './sampleData';
 import { Database } from './database';
 
 export const HomeScreen = (props) => (
@@ -26,9 +23,7 @@ export const HomeScreen = (props) => (
             })
         }}/>
         <CustomButton text="Add new movie" onPress={() => 
-            props.navigation.navigate('AddMovieScreen', {
-                movies: sampleData()
-            })
+            props.navigation.navigate('AddMovieScreen')
         }/>
     </View>
 );

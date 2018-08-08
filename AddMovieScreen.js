@@ -11,8 +11,6 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    TouchableWithoutFeedback,
-    Button,
     TextInput,
     DatePickerAndroid
 } from "react-native";

@@ -5,8 +5,6 @@
 import React, { Component } from 'react';
 import {
     ScrollView,
-    View,
-    Text,
     StyleSheet
 } from "react-native";
 import { MovieItem } from './MovieItem';

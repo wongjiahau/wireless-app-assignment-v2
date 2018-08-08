@@ -7,8 +7,6 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
-    Button
 } from "react-native";
 import { formatDate } from './util';
 
