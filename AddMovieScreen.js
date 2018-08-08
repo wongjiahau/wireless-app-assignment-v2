@@ -42,14 +42,14 @@ export class AddMovieScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.header}>Movie title</Text>
                 <TextInput 
-                    style={styles.field}
+                    style={styles.textField}
                     value={this.state.title}
                     onChangeText={(title) => {this.setState({title})}}
                     />
 
                 <Text style={styles.header}>Language</Text>
                 <Picker mode="dropdown"
-                    style={styles.field}
+                    style={styles.pickerField}
                     selectedValue={this.state.language}
                     onValueChange={(itemValue, itemIdex) => {
                         this.setState({language: itemValue});
@@ -62,7 +62,7 @@ export class AddMovieScreen extends Component {
                     style={{paddingLeft: 10, marginBottom: 40}}
                     onPress={this.handlePickDate}>
                     <View>
-                        <Text style={styles.field}>
+                        <Text style={styles.textField}>
                             {formatDate(this.state.release_date)}
                         </Text>
                     </View>
@@ -105,9 +105,14 @@ export class AddMovieScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    field: {
+    textField: {
         alignSelf: "stretch",
         fontSize: 20,
+        color: "black",
+        marginBottom: 20
+    },
+    pickerField: {
+        alignSelf: "stretch",
         color: "black",
         marginBottom: 20
     },
