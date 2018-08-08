@@ -2,7 +2,6 @@ import {
     createStackNavigator
 } from "react-navigation";
 import { MovieListScreen } from "./MovieListScreen";
-import App from "./App";
 import { HomeScreen } from "./HomeScreen";
 import { MovieScreen } from "./MovieScreen";
 import { AddMovieScreen } from "./AddMovieScreen";
