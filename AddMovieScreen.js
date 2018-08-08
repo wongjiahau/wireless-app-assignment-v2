@@ -12,6 +12,7 @@ import {
     TextInput,
     DatePickerAndroid
 } from "react-native";
+import { formatDate } from './util';
 
 const LANGUAGES = [
     "English",
@@ -23,6 +24,9 @@ const LANGUAGES = [
 ];
 
 export class AddMovieScreen extends Component {
+    static navigationOptions = {
+        title: "Add new movie"
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -34,26 +38,34 @@ export class AddMovieScreen extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
+                <Text style={styles.header}>Movie title</Text>
                 <TextInput 
+                    style={styles.field}
                     value={this.state.title}
-                    placeholder={"Movie Title"}
                     onChangeText={(title) => {this.setState({title})}}
                     />
+
+                <Text style={styles.header}>Language</Text>
                 <Picker mode="dropdown"
+                    style={styles.field}
                     selectedValue={this.state.language}
                     onValueChange={(itemValue, itemIdex) => {
                         this.setState({language: itemValue});
                     }}>
                     {LANGUAGES.map((x, index) => <Picker.Item key={index} label={x} value={x}/>)}
                 </Picker>
-                <TouchableWithoutFeedback onPress={this.handlePickDate}>
+
+                <Text style={styles.header}>Release date</Text>
+                <TouchableOpacity
+                    style={{paddingLeft: 10, marginBottom: 40}}
+                    onPress={this.handlePickDate}>
                     <View>
-                        <Text>
-                            {this.state.release_date.toString()}
+                        <Text style={styles.field}>
+                            {formatDate(this.state.release_date)}
                         </Text>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
                 <Button onPress={() => {
                     if(!this.state.title) {
                         Alert.alert("Please fill in Movie Title.")
@@ -90,3 +102,18 @@ export class AddMovieScreen extends Component {
         }
     }
 }
+
+const styles = StyleSheet.create({
+    field: {
+        alignSelf: "stretch",
+        fontSize: 20,
+        color: "black",
+        marginBottom: 20
+    },
+    container: {
+        padding: 30
+    },
+    header: {
+        marginLeft: 7
+    }
+});

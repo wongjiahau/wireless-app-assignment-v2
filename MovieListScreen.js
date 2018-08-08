@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
 import {
     ScrollView,
-    ListView,
     View,
-    Text
+    Text,
+    StyleSheet
 } from "react-native";
 import { MovieItem } from './MovieItem';
 
 export const MovieListScreen = (props) => {
     const movies = props.navigation.getParam("movies");
     return (
-        <View>
-            <Text>Movies</Text>
+        <ScrollView style={styles.container}>
             {movies.map((x) => (
                 <MovieItem 
-                    movie={x}
+                    id={x.id}
+                    title={x.title}
+                    language={x.language}
                     navigation={props.navigation}
                     />
             ))}
-        </View>
+        </ScrollView>
     )
 }
+
+MovieListScreen.navigationOptions = {
+    title: "View movies"
+}
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 15
+    }
+})

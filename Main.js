@@ -24,7 +24,7 @@ export const Main = createStackNavigator({
     initialRouteName: 'Home',
     navigationOptions: {
         headerStyle: {
-            backgroundColor: 'green'
+            backgroundColor: 'lightblue',
         }
     }
 }

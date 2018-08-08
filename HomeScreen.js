@@ -11,7 +11,6 @@ import { Database } from './database';
 
 export const HomeScreen = (props) => (
     <View style={styles.view}>
-        <Text>Home Screen</Text>
         <Button title="View movies" onPress={() => 
             Database.retrieveMovie((movies) => {
                 props.navigation.navigate('MovieListScreen', {
@@ -27,11 +26,17 @@ export const HomeScreen = (props) => (
     </View>
 );
 
+HomeScreen.navigationOptions = {
+    title: "MovieApp"
+}
+
 const styles = StyleSheet.create({
     view: {
         borderWidth: 1,
         padding: 10,
-        width: 300
+        width: 300,
+        alignItems: "center",
+        alignSelf: "stretch"
     },
     title: {
         fontWeight: 'bold',
