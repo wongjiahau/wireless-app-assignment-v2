@@ -13,6 +13,7 @@ import {
     DatePickerAndroid
 } from "react-native";
 import { formatDate } from './util';
+import { CustomButton } from './HomeScreen';
 
 const LANGUAGES = [
     "English",
@@ -66,7 +67,7 @@ export class AddMovieScreen extends Component {
                         </Text>
                     </View>
                 </TouchableOpacity>
-                <Button onPress={() => {
+                <CustomButton onPress={() => {
                     if(!this.state.title) {
                         Alert.alert("Please fill in Movie Title.")
                         return;
@@ -79,7 +80,7 @@ export class AddMovieScreen extends Component {
                         Alert.alert("Successfully added the movie into database!");
                         this.props.navigation.goBack();
                     })
-                }} title="Submit"/>
+                }} text="Submit"/>
             </View>
         );
     }

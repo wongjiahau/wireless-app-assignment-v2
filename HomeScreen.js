@@ -10,15 +10,18 @@ import { sampleData } from './sampleData';
 import { Database } from './database';
 
 export const HomeScreen = (props) => (
-    <View style={styles.view}>
-        <Button title="View movies" onPress={() => 
+    <View>
+        <Text style={{fontSize: 25, textAlign: "center", marginTop: 50, marginBottom: 50}}>
+            Welcome to the Movie App!
+        </Text>
+        <CustomButton text="View movies" onPress={() => {
             Database.retrieveMovie((movies) => {
                 props.navigation.navigate('MovieListScreen', {
                     movies: movies
                 })
             })
-        }/>
-        <Button title="Add new movie" onPress={() => 
+        }}/>
+        <CustomButton text="Add new movie" onPress={() => 
             props.navigation.navigate('AddMovieScreen', {
                 movies: sampleData()
             })
@@ -30,16 +33,23 @@ HomeScreen.navigationOptions = {
     title: "MovieApp"
 }
 
-const styles = StyleSheet.create({
-    view: {
-        borderWidth: 1,
-        padding: 10,
-        width: 300,
+
+export const CustomButton = (props) => (
+    <TouchableOpacity style={{
+        backgroundColor: "blue",
+        alignSelf: "stretch",
+        height: 50,
+        marginTop: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        paddingTop: 10,
         alignItems: "center",
-        alignSelf: "stretch"
-    },
-    title: {
-        fontWeight: 'bold',
-        fontSize: 20
-    }
-});
+        borderRadius: 5,
+        }} onPress={props.onPress}>
+        <Text style={{
+            fontSize: 20,
+            color: "white",
+            fontWeight: "bold"
+        }}>{props.text.toUpperCase()}</Text>
+    </TouchableOpacity>
+)
