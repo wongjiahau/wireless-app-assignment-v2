@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import { MovieListScreen } from './MovieListScreen';
 import { sampleData } from './sampleData';
+import { Main } from './Main';
 let SQLite = require('react-native-sqlite-storage');
 
 let db = SQLite.openDatabase({name: 'moviedb',createFromLocation : '~db.sqlite'}, ()=>{}, ()=>{});
@@ -39,6 +40,7 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
+        <Main/>
         <MovieListScreen movies={sampleData()}/>
         <Text style={styles.welcome}>
           Welcome to React Native

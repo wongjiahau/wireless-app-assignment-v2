@@ -7,13 +7,17 @@ import {
 } from "react-native";
 import { MovieItem } from './MovieItem';
 
-export const MovieListScreen = (props) => (
-    <View>
-        {props.movies.map((x) => (
-            <MovieItem 
-                title={x.title}
-                language={x.language}
-                />
-        ))}
-    </View>
-);
+export const MovieListScreen = (props) => {
+    const movies = props.navigation.getParam("movies");
+    return (
+        <View>
+            <Text>Movies</Text>
+            {movies.map((x) => (
+                <MovieItem 
+                    movie={x}
+                    navigation={props.navigation}
+                    />
+            ))}
+        </View>
+    )
+}
