@@ -1,20 +1,29 @@
 import sqlite3
 db = sqlite3.connect('db.sqlite')
 
-db.execute('''CREATE TABLE students(
-    id integer PRIMARY KEY,
-    name text NOT NULL,
-    email text NOT NULL,
-    state text NOT NULL
-)''')
+db.execute('''
+	CREATE TABLE task(
+		id 		 	integer PRIMARY KEY AUTOINCREMENT,
+		title 	 	text 	 NOT NULL,
+		content  	text 	 NOT NULL,
+		pinned 	 	integer NOT NULL, 	-- 0 or 1
+		completed   integer NOT NULL, 	-- 0 or 1
+		reminder    integer 			-- epoch time in minutes
+	);
+''')
 
 cursor = db.cursor()
 
-cursor.execute('''INSERT INTO students(name,email,state) VALUES("Chia Kim Hooi","chiakh@duckmail.com","07")''')
-cursor.execute('''INSERT INTO students(name,email,state) VALUES("Foo Yoke Wai","fooyw@roostermail.com","08")''')
-cursor.execute('''INSERT INTO students(name,email,state) VALUES("Ng Pei Li","ngpl@catmail.com","05")''')
-cursor.execute('''INSERT INTO students(name,email,state) VALUES("Lim Li Li","limll@koalamail.com","01")''')
-cursor.execute('''INSERT INTO students(name,email,state) VALUES("Mok Sook Chen","moksc@dogmail.com","07")''')
+# Insert two dummy tasks
+cursor.execute('''
+    INSERT INTO task(title, content, pinned, completed, reminder)
+    VALUES('Buy fruits', '2 apples', 0, 1, 1534330746081)
+''')
+
+cursor.execute('''
+    INSERT INTO task(title, content, pinned, completed, reminder)
+    VALUES('Go shopping', 'at MV', 1, 0, 1334330746081)
+''')
 
 db.commit()
 db.close()
