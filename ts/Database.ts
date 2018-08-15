@@ -90,6 +90,8 @@ function reinitializeDatabase() {
     [
         ["Task", "Content", 0, 0, 123456789],
         ["Task2", "Content2", 0, 0, 123456789],
+        ["Go shopping", "Content", 1, 0, 123456789],
+        ["Go buy ticket", "Content2", 1, 0, 123456789],
     ].forEach((x) => {
         query(`
         INSERT INTO task(title, content, pinned, completed, reminder)

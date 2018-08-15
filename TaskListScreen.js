@@ -7,7 +7,9 @@ import {
     Alert,
     ScrollView,
     StyleSheet,
-    ToastAndroid
+    ToastAndroid,
+    Text,
+    View
 } from "react-native";
 import { TaskItem } from './TaskItem';
 import { Controller } from './js/Controller';
@@ -21,20 +23,39 @@ export class TaskListScreen extends React.Component {
     }
 
     render() {
+        const pinnedTask = this.state.tasks.filter((x) => x.pinned === 1);
+        const unpinnedTask = this.state.tasks.filter((x) => x.pinned === 0);
         return (
             <ScrollView style={styles.container}>
-                {this.state.tasks.map((x) => (
-                    <TaskItem 
-                        key={x.id}
-                        title={x.title}
-                        handleEdit={this.handleEdit}
-                        handleDelete={() => this.handleDelete(x)}
-                        handleTogglePin={this.handleTogglePin}
-                        handleToggleComplete={this.handleToggleComplete}
-                        />
-                ))}
+                {
+                    pinnedTask.length === 0 ? null: 
+                    <View>
+                        <Text style={styles.header}>Pinned tasks</Text>
+                        {this.renderTask(pinnedTask)}
+                    </View>
+                }
+                {
+                    unpinnedTask.length === 0 ? null:
+                    <View>
+                        <Text style={styles.header}>Unpinned tasks</Text>
+                        {this.renderTask(unpinnedTask)}
+                    </View>
+                }
             </ScrollView>
         )
+    }
+
+    renderTask = (tasks) => {
+        return tasks.map((x) => (
+            <TaskItem 
+                key={x.id}
+                title={x.title}
+                handleEdit={this.handleEdit}
+                handleDelete={() => this.handleDelete(x)}
+                handleTogglePin={() => this.handleTogglePin(x)}
+                handleToggleComplete={this.handleToggleComplete}
+                />
+        ))
     }
 
     handleEdit = (task) => {
@@ -69,7 +90,17 @@ export class TaskListScreen extends React.Component {
     }
 
     handleTogglePin = (task) => {
-
+        if(task.pinned === 0) {
+            Controller.enpinTask(task, () => {
+                ToastAndroid.show(`Pinned "${task.title}"`, ToastAndroid.SHORT);
+                this.refresh();
+            });
+        } else if(task.pinned === 1) {
+            Controller.depinTask(task, () => {
+                ToastAndroid.show(`Unpinned "${task.title}"`, ToastAndroid.SHORT);
+                this.refresh();
+            });
+        }
     }
 
     componentDidMount() {
@@ -90,5 +121,8 @@ TaskListScreen.navigationOptions = {
 const styles = StyleSheet.create({
     container: {
         padding: 15
+    },
+    header: {
+        marginLeft: 1
     }
 })
