@@ -28,6 +28,13 @@ export class TaskListScreen extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 {
+                    this.state.tasks.length > 0 ? null :
+                    <View>
+                        <Text>There is no on going task.</Text>
+                    </View>
+
+                }
+                {
                     pinnedTask.length === 0 ? null: 
                     <View>
                         <Text style={styles.header}>Pinned tasks</Text>
@@ -53,7 +60,7 @@ export class TaskListScreen extends React.Component {
                 handleEdit={this.handleEdit}
                 handleDelete={() => this.handleDelete(x)}
                 handleTogglePin={() => this.handleTogglePin(x)}
-                handleToggleComplete={this.handleToggleComplete}
+                handleToggleComplete={() => this.handleToggleComplete(x)}
                 />
         ))
     }
@@ -86,7 +93,17 @@ export class TaskListScreen extends React.Component {
     }
 
     handleToggleComplete = (task) => {
-
+        if(task.completed === 0)         {
+            Controller.encompleteTask(task, () => {
+                ToastAndroid.show(`Completed "${task.title}"`, ToastAndroid.SHORT);
+                this.refresh();
+            })
+        } else if(task.completed === 1) {
+            Controller.decompleteTask(task, () => {
+                ToastAndroid.show(`"${task.title}" is marked as uncompleted.`, ToastAndroid.SHORT);
+                this.refresh();
+            })
+        }
     }
 
     handleTogglePin = (task) => {
@@ -108,7 +125,7 @@ export class TaskListScreen extends React.Component {
     }
 
     refresh() {
-        Controller.getAllTask((tasks) => {
+        Controller.getOnGoingTask((tasks) => {
             this.setState({tasks: tasks});
         });
     }

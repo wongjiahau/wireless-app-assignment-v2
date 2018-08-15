@@ -54,12 +54,12 @@ export class TaskItem extends React.Component {
                                         <Text style={styles.buttonText}>Delete</Text>
                                     </View>
                                 </TouchableHighlight>
-                                <TouchableHighlight onPress={this._onPressButton} onLongPress={this._onLongPressButton} underlayColor="white">
+                                <TouchableHighlight onPress={this.props.handleTogglePin} onLongPress={this._onLongPressButton} underlayColor="white">
                                     <View style={styles.button03}>
                                         <Text style={styles.buttonText}>Pin</Text>
                                     </View>
                                 </TouchableHighlight>
-                                <TouchableHighlight onPress={this._onPressButton} onLongPress={this._onLongPressButton} underlayColor="white">
+                                <TouchableHighlight onPress={this.props.handleToggleComplete} onLongPress={this._onLongPressButton} underlayColor="white">
                                     <View style={styles.button04}>
                                         <Text style={styles.buttonText}>Mark as Completed</Text>
                                     </View>
