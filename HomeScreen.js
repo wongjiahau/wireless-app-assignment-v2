@@ -12,21 +12,19 @@ import {
 import { Database } from './js/Database';
 
 
-Database.retrieveTask((result) => {
-    alert(JSON.stringify(result))
-});
+// Database.retrieveTask((result) => {
+//     alert(JSON.stringify(result))
+// });
+
+Database.reinitializeDatabase();
 
 export const HomeScreen = (props) => (
     <View>
         <Text style={{fontSize: 25, textAlign: "center", marginTop: 50, marginBottom: 50}}>
-            Welcome tG the Movie App!
+            Welcome to the Movie App!
         </Text>
-        <CustomButton text="View movies" onPress={() => {
-            Database.retrieveMovie((movies) => {
-                props.navigation.navigate('MovieListScreen', {
-                    movies: movies
-                })
-            })
+        <CustomButton text="View tasks" onPress={() => {
+            props.navigation.navigate('TaskListScreen');
         }}/>
         <CustomButton text="Add new movie" onPress={() => 
             props.navigation.navigate('AddReminderScreen')

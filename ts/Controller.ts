@@ -8,9 +8,9 @@ export const Controller = {
     createTask: createTask,
     updateTask: updateTask,
     deleteTask: deleteTask,
-    viewAllTask: viewAllTask,
-    viewCompletedTask: viewCompletedTask,
-    viewOnGoingTask: viewOnGoingTask,
+    getAllTask: getAllTask,
+    getCompletedTask: getCompletedTask,
+    getOnGoingTask: getOnGoingTask,
     encompleteTask: encompleteTask,
     decompleteTask: decompleteTask,
     enpinTask: enpinTask,
@@ -41,19 +41,19 @@ function deleteTask(taskId: number, callback: QueryCallback) {
     Database.deleteTask(taskId, callback);
 }
 
-function viewAllTask(callback: (results: Task[]) => void) {
+function getAllTask(callback: (results: Task[]) => void) {
     Database.retrieveTask((tasks: Task[]) => {
         callback(tasks) ;
     });
 }
 
-function viewCompletedTask(callback: (results: Task[]) => void) {
+function getCompletedTask(callback: (results: Task[]) => void) {
     Database.retrieveTask((tasks: Task[]) => {
         callback(tasks.filter((x) => x.completed === 1)) ;
     });
 }
 
-function viewOnGoingTask(callback: (results: Task[]) => void) {
+function getOnGoingTask(callback: (results: Task[]) => void) {
     Database.retrieveTask((tasks: Task[]) => {
         callback(tasks.filter((x) => x.completed === 0)) ;
     });

@@ -18,11 +18,15 @@ function query(
 ) {
     db.transaction((tx: SQLite.Transaction) => {
         tx.executeSql(query, params, (_, results) => {
-            const rows = [];
-            for (let i = 0; i < results.rows.length; i++) {
-                rows.push(results.rows.item(i));
+            if (results.rowsAffected > 0) {
+                callback(results);
+            } else {
+                const rows = [];
+                for (let i = 0; i < results.rows.length; i++) {
+                    rows.push(results.rows.item(i));
+                }
+                callback(rows);
             }
-            callback(rows);
         });
     });
 }
@@ -74,8 +78,25 @@ function updateTask(newTask: Task, callback: QueryCallback) {
 
 function deleteTask(taskId: number, callback: QueryCallback) {
     return query(`
-    DELETE FROM task where id = ?
+    DELETE FROM task WHERE id = ?
     `, [taskId], callback);
+}
+
+function reinitializeDatabase() {
+    query(`
+    DELETE FROM task WHERE 1=1;
+    `, [], () => {});
+
+    [
+        ["Task", "Content", 0, 0, 123456789],
+        ["Task2", "Content2", 0, 0, 123456789],
+    ].forEach((x) => {
+        query(`
+        INSERT INTO task(title, content, pinned, completed, reminder)
+        VALUES(?, ?, ?, ?, ?)`, [
+            x[0], x[1], x[2], x[3], x[4],
+        ], () => {});
+    });
 }
 
 export const Database = {
@@ -83,4 +104,5 @@ export const Database = {
     retrieveTask: retrieveTask,
     updateTask: updateTask,
     deleteTask: deleteTask,
+    reinitializeDatabase: reinitializeDatabase,
 };

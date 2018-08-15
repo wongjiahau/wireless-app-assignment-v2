@@ -5,17 +5,17 @@
 import {
     createStackNavigator
 } from "react-navigation";
-import { MovieListScreen } from "./MovieListScreen";
 import { HomeScreen } from "./HomeScreen";
 import { MovieScreen } from "./MovieScreen";
 import { AddReminderScreen } from "./AddReminderScreen";
+import { TaskListScreen } from "./TaskListScreen";
 
 export const Main = createStackNavigator({
     'Home': {
         screen: HomeScreen
     },
-    'MovieListScreen': {
-        screen: MovieListScreen
+    'TaskListScreen': {
+        screen: TaskListScreen
     },
     'MovieScreen': {
         screen: MovieScreen,
