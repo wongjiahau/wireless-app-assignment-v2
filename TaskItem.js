@@ -44,7 +44,7 @@ export class TaskItem extends React.Component {
                         }}>
                         <View style={{ marginTop: 22 }}>
                             <View style={styles.buttonView}>
-                                <TouchableHighlight onPress={this._onPressButton} onLongPress={this._onLongPressButton} underlayColor="white">
+                                <TouchableHighlight onPress={this.props.handleEdit} onLongPress={this._onLongPressButton} underlayColor="white">
                                     <View style={styles.button01}>
                                         <Text style={styles.buttonText}>Edit</Text>
                                     </View>

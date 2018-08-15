@@ -9,6 +9,7 @@ import { HomeScreen } from "./HomeScreen";
 import { MovieScreen } from "./MovieScreen";
 import { AddTaskScreen } from "./AddTaskScreen";
 import { TaskListScreen } from "./TaskListScreen";
+import { EditTaskScreen } from "./EditTaskScreen";
 
 export const Main = createStackNavigator({
     'Home': {
@@ -20,8 +21,11 @@ export const Main = createStackNavigator({
     'MovieScreen': {
         screen: MovieScreen,
     },
-    'AddReminderScreen': {
+    'AddTaskScreen': {
         screen: AddTaskScreen
+    },
+    'EditTaskScreen': {
+        screen: EditTaskScreen
     }
 }, {
     initialRouteName: 'Home',

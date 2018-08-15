@@ -16,7 +16,7 @@ import { Database } from './js/Database';
 //     alert(JSON.stringify(result))
 // });
 
-Database.reinitializeDatabase();
+// Database.reinitializeDatabase();
 
 export const HomeScreen = (props) => (
     <View>
@@ -27,7 +27,7 @@ export const HomeScreen = (props) => (
             props.navigation.navigate('TaskListScreen');
         }}/>
         <CustomButton text="Add new movie" onPress={() => 
-            props.navigation.navigate('AddReminderScreen')
+            props.navigation.navigate('AddTaskScreen')
         }/>
     </View>
 );

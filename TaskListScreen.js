@@ -58,7 +58,7 @@ export class TaskListScreen extends React.Component {
             <TaskItem 
                 key={x.id}
                 title={x.title}
-                handleEdit={this.handleEdit}
+                handleEdit={() => this.handleEdit(x)}
                 handleDelete={() => this.handleDelete(x)}
                 handleTogglePin={() => this.handleTogglePin(x)}
                 handleToggleComplete={() => this.handleToggleComplete(x)}
@@ -67,7 +67,7 @@ export class TaskListScreen extends React.Component {
     }
 
     handleEdit = (task) => {
-        // this.props.navigation.navigate()
+        this.props.navigation.navigate("EditTaskScreen", {task: task});
     }
 
     handleDelete = (task) => {
