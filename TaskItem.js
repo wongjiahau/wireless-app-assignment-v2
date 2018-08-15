@@ -5,9 +5,18 @@ import {
     Text,
     View,
     TouchableHighlight,
-    Modal,
-    Button,
+    Modal
 } from 'react-native';
+import { Icon,Button } from 'react-native-elements'
+
+const buttonStyle = {
+    height : 100,
+    width : 300,
+    borderWidth : 0,
+    borderRadius : 10,
+    marginTop: 20
+}
+
 
 export class TaskItem extends React.Component {
     state = {
@@ -26,11 +35,6 @@ export class TaskItem extends React.Component {
         Alert.alert('You long pressed the button!');
     }
 
-    handleAction = (action) => {
-        action();
-        this.setState({modalVisible: false});
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -44,26 +48,50 @@ export class TaskItem extends React.Component {
                         }}>
                         <View style={{ marginTop: 22 }}>
                             <View style={styles.buttonView}>
-                                <TouchableHighlight onPress={this.props.handleEdit} onLongPress={this._onLongPressButton} underlayColor="white">
-                                    <View style={styles.button01}>
-                                        <Text style={styles.buttonText}>Edit</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={this.props.handleDelete}  underlayColor="white">
-                                    <View style={styles.button02}>
-                                        <Text style={styles.buttonText}>Delete</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={this.props.handleTogglePin} onLongPress={this._onLongPressButton} underlayColor="white">
-                                    <View style={styles.button03}>
-                                        <Text style={styles.buttonText}>Pin</Text>
-                                    </View>
-                                </TouchableHighlight>
-                                <TouchableHighlight onPress={this.props.handleToggleComplete} onLongPress={this._onLongPressButton} underlayColor="white">
-                                    <View style={styles.button04}>
-                                        <Text style={styles.buttonText}>Mark as Completed</Text>
-                                    </View>
-                                </TouchableHighlight>
+                                <Button style={styles.buttons}
+                                large
+                                icon={{name: 'edit', type:'font-awesome'}}
+                                title='EDIT'
+                                buttonStyle={{
+                                    backgroundColor: "#daa520",
+                                    ...buttonStyle
+                                  }} 
+                                  onPress={this.props.handleEdit}
+                                  />
+
+                                <Button style={styles.buttons}
+                                large
+                                icon={{name: 'delete', type:'material-community'}}
+                                title='DELETE'
+                                buttonStyle={{
+                                    backgroundColor: "#b22222",
+                                    ...buttonStyle
+                                  }} 
+                                  onPress={this.props.handleDelete}
+                                  />
+
+                                <Button style={styles.buttons}
+                                large
+                                icon={{name: 'pin', type:'entypo'}}
+                                title='PIN'
+                                buttonStyle={{
+                                    backgroundColor: "#87ceeb",
+                                    ...buttonStyle
+                                  }} 
+                                  onPress={this.props.handleTogglePin}
+                                  />
+
+                                <Button style={styles.buttons}
+                                large
+                                icon={{name: 'check', type:'feather'}}
+                                title='MARK COMPLETE'
+                                buttonStyle={{
+                                    backgroundColor: "#20b2aa",
+                                    ...buttonStyle
+                                  }} 
+                                  onPress={this.props.handleToggleComplete}
+                                  />
+                            
                             </View>
                         </View>
                     </Modal>
@@ -90,9 +118,7 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOpacity: 1.0,
         borderWidth: 1,
-        flexDirection: 'row',
         backgroundColor: '#fff',
-        justifyContent: 'space-between',
     },
     textStyling: {
         width: 360,
@@ -103,48 +129,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     buttonView: {
-        paddingTop: 45,
-        paddingBottom: 45,
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center',
+        paddingTop: 80,
+        paddingBottom: 0,
+        paddingLeft: 45,
     },
-    button01: {
-        width: 6000,
-        height: 100,
-        margin: 20,
-        backgroundColor: '#d3d3d3',
-        borderRadius: 5,
-        bottom: 0
-    },
-    button02: {
-        width: 6000,
-        height: 100,
-        margin: 20,
-        backgroundColor: '#ff0000',
-        borderRadius: 5,
-        bottom: 0
-    },
-    button03: {
-        width: 6000,
-        height: 100,
-        margin: 20,
-        backgroundColor: '#2196F3',
-        borderRadius: 5,
-        bottom: 0
-    },
-    button04: {
-        width: 6000,
-        height: 100,
-        margin: 20,
-        backgroundColor: '#008000',
-        borderRadius: 5,
-        bottom: 0
-    },
-    buttonText: {
-        paddingTop: 30,
-        textAlign: 'center',
-        fontSize: 24,
-        color: 'white'
-    }
 });
+
