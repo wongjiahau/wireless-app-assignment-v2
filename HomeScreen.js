@@ -8,7 +8,12 @@ import {
     Text,
     TouchableOpacity,
 } from "react-native";
-import { Database } from './database';
+
+import { Database } from './js/database';
+
+Database.query("SELECT * FROM task", [], (result) => {
+    alert(JSON.stringify(result))
+});
 
 export const HomeScreen = (props) => (
     <View>

@@ -3,7 +3,7 @@
  * Reg. No.: 1500181
  */
 import React, { Component } from 'react';
-import { Database } from './database';
+import { Database } from './js/database';
 import {
     Alert,
     View,
