@@ -41,6 +41,7 @@ export class TaskListScreen extends React.Component {
                         {this.renderTask(pinnedTask)}
                     </View>
                 }
+                <Text>{"\n"}</Text>
                 {
                     unpinnedTask.length === 0 ? null:
                     <View>

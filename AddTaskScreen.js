@@ -16,9 +16,9 @@ import { formatDate } from './util';
 import { CustomButton } from './HomeScreen';
 import { Controller } from './js/Controller';
 
-export class AddReminderScreen extends Component {
+export class AddTaskScreen extends Component {
     static navigationOptions = {
-        title: "Add new reminder"
+        title: "Add new task"
     }
     constructor(props) {
         super(props);

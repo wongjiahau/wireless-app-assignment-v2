@@ -7,7 +7,7 @@ import {
 } from "react-navigation";
 import { HomeScreen } from "./HomeScreen";
 import { MovieScreen } from "./MovieScreen";
-import { AddReminderScreen } from "./AddReminderScreen";
+import { AddTaskScreen } from "./AddTaskScreen";
 import { TaskListScreen } from "./TaskListScreen";
 
 export const Main = createStackNavigator({
@@ -21,7 +21,7 @@ export const Main = createStackNavigator({
         screen: MovieScreen,
     },
     'AddReminderScreen': {
-        screen: AddReminderScreen
+        screen: AddTaskScreen
     }
 }, {
     initialRouteName: 'Home',

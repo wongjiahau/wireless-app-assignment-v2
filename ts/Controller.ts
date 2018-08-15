@@ -20,13 +20,13 @@ export const Controller = {
 function createTask(
     title: string,
     content: string,
-    reminder: Date,
+    reminder: Date | null,
     callback: QueryCallback,
 ) {
     const newTask: Task = {
         title: title,
         content: content,
-        reminder: reminder.getTime(),
+        reminder: reminder ? reminder.getTime() : null,
         pinned: 0,
         completed: 0,
     };
