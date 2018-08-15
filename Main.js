@@ -8,7 +8,7 @@ import {
 import { MovieListScreen } from "./MovieListScreen";
 import { HomeScreen } from "./HomeScreen";
 import { MovieScreen } from "./MovieScreen";
-import { AddMovieScreen } from "./AddMovieScreen";
+import { AddReminderScreen } from "./AddReminderScreen";
 
 export const Main = createStackNavigator({
     'Home': {
@@ -20,8 +20,8 @@ export const Main = createStackNavigator({
     'MovieScreen': {
         screen: MovieScreen,
     },
-    'AddMovieScreen': {
-        screen: AddMovieScreen
+    'AddReminderScreen': {
+        screen: AddReminderScreen
     }
 }, {
     initialRouteName: 'Home',

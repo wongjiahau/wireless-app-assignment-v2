@@ -9,7 +9,7 @@ import {
     StyleSheet,
     TouchableOpacity
 } from "react-native";
-import { Database } from './js/database';
+import { Database } from './js/Database';
 
 export const MovieItem = (props) => (
     <TouchableOpacity

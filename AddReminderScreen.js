@@ -3,11 +3,9 @@
  * Reg. No.: 1500181
  */
 import React, { Component } from 'react';
-import { Database } from './js/database';
 import {
     Alert,
     View,
-    Picker,
     Text,
     StyleSheet,
     TouchableOpacity,
@@ -16,73 +14,69 @@ import {
 } from "react-native";
 import { formatDate } from './util';
 import { CustomButton } from './HomeScreen';
+import { Controller } from './js/Controller';
 
-const LANGUAGES = [
-    "English",
-    "Malay",
-    "Mandarin",
-    "Cantonese",
-    "Japanese",
-    "Korean"
-];
-
-export class AddMovieScreen extends Component {
+export class AddReminderScreen extends Component {
     static navigationOptions = {
-        title: "Add new movie"
+        title: "Add new reminder"
     }
     constructor(props) {
         super(props);
         this.state = {
             title: "",
-            language: LANGUAGES[0],
-            release_date: new Date()
+            content: "",
+            reminder: null // Date
         }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.header}>Movie title</Text>
+                <Text style={styles.header}>Title</Text>
                 <TextInput 
                     style={styles.textField}
                     value={this.state.title}
                     onChangeText={(title) => {this.setState({title})}}
                     />
 
-                <Text style={styles.header}>Language</Text>
-                <Picker mode="dropdown"
-                    style={styles.pickerField}
-                    selectedValue={this.state.language}
-                    onValueChange={(itemValue, itemIdex) => {
-                        this.setState({language: itemValue});
-                    }}>
-                    {LANGUAGES.map((x, index) => <Picker.Item key={index} label={x} value={x}/>)}
-                </Picker>
+                <Text style={styles.header}>Content</Text>
+                <TextInput 
+                    style={styles.textField}
+                    value={this.state.content}
+                    multiline={true}
+                    numberOfLines={3}
+                    onChangeText={(content) => {this.setState({content})}}
+                    />
 
-                <Text style={styles.header}>Release date</Text>
+                <Text style={styles.header}>Reminder</Text>
                 <TouchableOpacity
                     style={{paddingLeft: 10, marginBottom: 40}}
                     onPress={this.handlePickDate}>
                     <View>
                         <Text style={styles.textField}>
-                            {formatDate(this.state.release_date)}
+                            {
+                                this.state.reminder ?
+                                formatDate(this.state.reminder) :
+                                "Click to add reminder"
+                            }
                         </Text>
                     </View>
                 </TouchableOpacity>
                 <CustomButton onPress={() => {
                     if(!this.state.title) {
-                        Alert.alert("Please fill in Movie Title.")
+                        Alert.alert("Please fill in Title.")
                         return;
                     }
-                    Database.insertMovie({
-                        title: this.state.title,
-                        language: this.state.language,
-                        release_date: this.state.release_date.getTime()
-                    }, (result) => {
-                        Alert.alert("Successfully added the movie into database!");
-                        this.props.navigation.goBack();
-                    })
-                }} text="Submit"/>
+                    Controller.createTask(
+                        this.state.title,
+                        this.state.content,
+                        this.state.reminder,
+                        (result) => {
+                            Alert.alert("Successfully added new task!");
+                            this.props.navigation.goBack();
+                        }
+                    )
+                }} text="Add task"/>
             </View>
         );
     }
@@ -90,14 +84,14 @@ export class AddMovieScreen extends Component {
     handlePickDate = async () => {
         try {
             const {action, year, month, day} = await DatePickerAndroid.open({
-                date: this.state.release_date,
+                date: this.state.reminder || new Date(),
                 minDate: new Date(1890, 0, 1),
                 maxDate: new Date() // Current date
             });
             if(action !== DatePickerAndroid.dismissedAction) {
                 const selectedDate = new Date(year, month, day);
                 this.setState({
-                    release_date: selectedDate
+                    reminder: selectedDate
                 });
             }
         } catch ({code, message}) {

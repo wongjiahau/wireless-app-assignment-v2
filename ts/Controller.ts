@@ -17,7 +17,19 @@ export const Controller = {
     depinTask: depinTask,
 };
 
-function createTask(newTask: Task, callback: QueryCallback) {
+function createTask(
+    title: string,
+    content: string,
+    reminder: Date,
+    callback: QueryCallback,
+) {
+    const newTask: Task = {
+        title: title,
+        content: content,
+        reminder: reminder.getTime(),
+        pinned: 0,
+        completed: 0,
+    };
     Database.createTask(newTask, callback);
 }
 

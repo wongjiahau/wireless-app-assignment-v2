@@ -9,16 +9,17 @@ import {
     TouchableOpacity,
 } from "react-native";
 
-import { Database } from './js/database';
+import { Database } from './js/Database';
 
-Database.query("SELECT * FROM task", [], (result) => {
+
+Database.retrieveTask((result) => {
     alert(JSON.stringify(result))
 });
 
 export const HomeScreen = (props) => (
     <View>
         <Text style={{fontSize: 25, textAlign: "center", marginTop: 50, marginBottom: 50}}>
-            Welcome to the Movie App!
+            Welcome tG the Movie App!
         </Text>
         <CustomButton text="View movies" onPress={() => {
             Database.retrieveMovie((movies) => {
@@ -28,7 +29,7 @@ export const HomeScreen = (props) => (
             })
         }}/>
         <CustomButton text="Add new movie" onPress={() => 
-            props.navigation.navigate('AddMovieScreen')
+            props.navigation.navigate('AddReminderScreen')
         }/>
     </View>
 );
