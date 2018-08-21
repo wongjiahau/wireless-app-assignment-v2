@@ -14,15 +14,15 @@ const actions = [{
   text: 'Add new task',
   color: '#c80000',
   // @ts-ignore
-  icon: require('./images/baseline_add_white_18dp.png'),
-  name: 'edit',
+  icon: require('./images/plus.png'),
+  name: 'add',
   position: 2
 }, {
   text: 'Filter',
   color: '#c80000',
   // @ts-ignore
-  icon: require('./images/sorting-options.png'),
-  name: 'delete',
+  icon: require('./images/filter.png'),
+  name: 'filter',
   position: 1
 }];
 
@@ -37,6 +37,7 @@ export class OpenModal extends Component {
     this.state = {
       modalVisible: false,
       visibleModal: null,
+      fabPressed: false
     };
   }
 
@@ -49,17 +50,24 @@ export class OpenModal extends Component {
           color={'#a80000'}
           floatingIcon={(
             <Image
-              // @ts-ignore
-              source={require('./images/baseline_edit_white_18dp.png')}
+              source={
+                this.state.fabPressed ? 
+                // @ts-ignore
+                require("./images/x.png") :
+                // @ts-ignore
+                require("./images/plus.png")
+              }
             />
           )}
+          onPressMain={() => this.setState({fabPressed: !this.state.fabPressed})}
           onPressItem={(name) => {
             switch (name) {
-              case 'edit':
-
+              case 'add':
+                this.closeFab();
+                this.props.navigation.navigate("AddTaskScreen")
                 break;
-
-              case 'delete':
+              case 'filter':
+                this.closeFab();
                 this.setState({ visibleModal: 1 });
                 break;
             }
@@ -95,13 +103,13 @@ export class OpenModal extends Component {
             </View>
           </TouchableOpacity>
         </View>
-
       </Modal>
         }
-        
       </View>
-    );
+    ); 
   }
+
+  closeFab = () => this.setState({fabPressed: false})
 }
 
 const styles = StyleSheet.create({
