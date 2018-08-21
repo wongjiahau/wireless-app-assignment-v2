@@ -21,7 +21,7 @@ const actions = [{
   text: 'Filter',
   color: '#c80000',
   // @ts-ignore
-  icon: require('./images/filter.png'),
+  icon: require('./images/fiterv2.png'),
   name: 'filter',
   position: 1
 }];
@@ -53,7 +53,7 @@ export class OpenModal extends Component {
               source={
                 this.state.fabPressed ? 
                 // @ts-ignore
-                require("./images/x.png") :
+                require("./images/xv3.png") :
                 // @ts-ignore
                 require("./images/plus.png")
               }
