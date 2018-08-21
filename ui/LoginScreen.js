@@ -39,6 +39,7 @@ export class LoginScreen extends Component {
             placeholderTextColor='grey' />
 
           <TextInput style={styles.input}
+            autoCapitalize="none"
             returnKeyType="go"
             ref={(input) => this.passwordInput = input}
             placeholder='Password'

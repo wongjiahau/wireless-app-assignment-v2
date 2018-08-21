@@ -24,7 +24,7 @@ export const Main = createStackNavigator({
     screen: EditTaskScreen
   }
 }, {
-  initialRouteName: 'TaskListScreen',
+  initialRouteName: 'LoginScreen',
   navigationOptions: {
     headerStyle: {
       backgroundColor: 'lightblue',

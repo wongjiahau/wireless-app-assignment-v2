@@ -21,7 +21,7 @@ db.execute('''
 db.execute('''
 	CREATE TABLE task(
 		user_id	  integer NOT NULL,
-		id 		    integer UNIQUE NOT NULL,
+		id 		    integer PRIMARY KEY AUTOINCREMENT,
 		title 	  text 	  NOT NULL,
 		content   text 	  NOT NULL,
 		pinned 	  integer NOT NULL,
@@ -36,7 +36,7 @@ cursor = db.cursor()
 # Insert one dummy user
 cursor.execute('''
     INSERT INTO user(email,password)
-    VALUES('john@gmail.com', '1234')
+    VALUES('qq', 'qq')
 ''')
 
 # Insert one dummy session

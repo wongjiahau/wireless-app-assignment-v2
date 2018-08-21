@@ -1,16 +1,15 @@
-import { AsyncStorage } from "react-native";
 import { Database, NULL_DATE, QueryCallback } from "./Database";
+import { getSessionId, storeSessionId } from "./SimpleStorage";
 import { Task } from "./Task";
 import { UserDetail, WebServer } from "./WebServer";
 
 export type NullDate = -1;
 
-export const ASYNC_STORAGE_KEY = "@TaskReminder:sessionid";
-
 export const Controller = {
     register: register,
     login: login,
     // logout:
+    uploadTask: uploadTask,
     createTask: createTask,
     updateTask: updateTask,
     deleteTask: deleteTask,
@@ -23,6 +22,18 @@ export const Controller = {
     depinTask: depinTask,
 };
 
+async function uploadTask(successCallback: () => void) {
+    try {
+        const sessionId = await getSessionId();
+        getAllTask(async (tasks) => {
+            await WebServer.upload(sessionId, tasks);
+            successCallback();
+        });
+    } catch (error) {
+        alert(error);
+    }
+}
+
 async function register(userDetail: UserDetail) {
     await WebServer.register(userDetail);
 }
@@ -30,7 +41,7 @@ async function register(userDetail: UserDetail) {
 async function login(userDetail: UserDetail) {
     const sessionId = await WebServer.login(userDetail);
     try {
-        await AsyncStorage.setItem(ASYNC_STORAGE_KEY, sessionId);
+        storeSessionId(sessionId);
     } catch (error) {
         alert(error);
     }

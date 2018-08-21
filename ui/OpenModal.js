@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Controller } from '../js/Controller';
 import {
   Image,
   StyleSheet,
   Text, 
   TouchableOpacity,
-  View
+  View,
+  ToastAndroid
 } from 'react-native';
 import Modal from "react-native-modal";
 import FloatingAction from '../react-native-floating-action/component/FloatingAction';
@@ -75,6 +77,9 @@ export class OpenModal extends Component {
               case 'filter':
                 this.closeFab();
                 this.setState({ modalVisible: 1 });
+              case 'upload':
+                this.closeFab();
+                Controller.uploadTask(ToastAndroid.show("Successfully uploaded to server!", ToastAndroid.SHORT));
                 break;
             }
           }

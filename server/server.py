@@ -36,7 +36,7 @@ def signup():
 
 @app.route('/api/get_session_id', methods=['GET'])
 def get_session_id():
-    return jsonify(int(round(time.time()))), 200
+    return jsonify(str(int(round(time.time())))), 200
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -74,7 +74,8 @@ def admin_get_table(table):
     parser = {
         'user':     parseUser,
         'task':     parseTask,
-        'reminder':    parseReminder
+        'reminder': parseReminder,
+        'session':  parseSession
     }
     data = fetchData(parser[table], f'SELECT * FROM {table}')
     return jsonify(data), 200
@@ -86,35 +87,32 @@ def retrieve_task(session_id):
     return jsonify(tasks), 200
 
 @app.route('/api/task', methods=['POST'])
-def create_task():
+def upload_task():
     if not request.json:
         abort(404)
         
     user_id = fetch_user_id_using_session(request.json["session_id"])
 
-    new_task = (
-        user_id,
-        request.json['title'],
-        request.json['content'],
-        request.json['pinned']
-    )
+    changeData("""
+        DELETE FROM task WHERE user_id = ?
+    """, (request.json["session_id"],))
+
+    for task in request.json["tasks"]:
+        new_task = (
+            user_id,
+            task['title'],
+            task['content'],
+            task['pinned'],
+            task['completed'],
+            task['reminder']
+        )
     
-    response = changeData("""
-        INSERT INTO task (user_id,title,content,pinned)
-        VALUES(?,?,?,?)
-    """, new_task)
-
-    task_id = response["id"]
-
-    # Insert reminders
-    reminders = request.json["reminders"]
-    for r in reminders:
         changeData("""
-            INSERT INTO reminder(task_id, date)
-            VALUES(?,?)
-        """, (task_id, r["date"]))
+            INSERT INTO task (user_id,title,content,pinned,completed,reminder)
+            VALUES(?,?,?,?,?,?)
+        """, new_task)
 
-    return jsonify(response), 200    
+    return jsonify("OK"), 200    
 
 def fetch_task(user_id):
     return fetchData(parseTask, 

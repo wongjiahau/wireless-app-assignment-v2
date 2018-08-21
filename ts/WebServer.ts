@@ -1,6 +1,8 @@
+import { Task } from "./Task";
+
 export const API = (operation: ApiOption) => `http://192.168.0.9:5000/api/${operation}`;
 
-export type ApiOption = "signup" | "login" | "get_session_id";
+export type ApiOption = "signup" | "login" | "get_session_id" | "task";
 
 export interface UserDetail {
   email: string;
@@ -8,7 +10,7 @@ export interface UserDetail {
 }
 
 async function register(userDetail: UserDetail) {
-  const response = await(await fetchData("signup", userDetail)).json();
+  const response = await(await postData("signup", userDetail)).json();
   if (response.error) {
     throw new Error(response.error);
   }
@@ -16,14 +18,18 @@ async function register(userDetail: UserDetail) {
 
 async function login(userDetail: UserDetail): string {
   const sessionId = await (await fetch(API("get_session_id"))).json();
-  const response = await (await fetchData("login", {...userDetail, session_id: sessionId})).json();
+  const response = await (await postData("login", {...userDetail, session_id: sessionId})).json();
   if (response.error) {
     throw new Error(response.error);
   }
   return sessionId;
 }
 
-async function fetchData<T>(api: ApiOption, body: T): Promise<any> {
+async function upload(sessionId: string, tasks: Task[]) {
+  await postData("task", {session_id: sessionId, tasks: tasks});
+}
+
+async function postData<T>(api: ApiOption, body: T): Promise<any> {
   return await fetch(API(api), {
     method: "POST",
     headers: {
@@ -37,4 +43,5 @@ async function fetchData<T>(api: ApiOption, body: T): Promise<any> {
 export const WebServer = {
   register: register,
   login: login,
+  upload: upload,
 };
