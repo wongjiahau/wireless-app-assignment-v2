@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Controller } from './js/Controller';
+import { Controller } from '../js/Controller';
 import { TaskForm } from './TaskForm';
 
 export class EditTaskScreen extends Component {

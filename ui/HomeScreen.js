@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 
-import { Database } from './js/Database';
+import { Database } from '../js/Database';
 
 
 // Database.retrieveTask((result) => {

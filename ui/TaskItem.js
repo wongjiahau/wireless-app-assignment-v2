@@ -8,8 +8,8 @@ import {
   Modal
 } from 'react-native';
 import { Icon,Button } from 'react-native-elements'
-import { formatDate } from './util';
-import { NULL_DATE } from './js/Database';
+import { formatDate } from '../util';
+import { NULL_DATE } from '../js/Database';
 
 const buttonStyle = {
   height : 100,

@@ -11,9 +11,9 @@ import {
     DatePickerAndroid,
     ToastAndroid
 } from "react-native";
-import { formatDate } from './util';
+import { formatDate } from '../util';
 import { CustomButton } from './HomeScreen';
-import { NULL_DATE } from './js/Database';
+import { NULL_DATE } from '../js/Database';
 
 export class TaskForm extends Component {
   constructor(props) {

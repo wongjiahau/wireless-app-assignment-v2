@@ -7,20 +7,20 @@ import {
   View
 } from 'react-native';
 import Modal from "react-native-modal";
-import FloatingAction from './react-native-floating-action/component/FloatingAction';
+import FloatingAction from '../react-native-floating-action/component/FloatingAction';
 
 const actions = [{
   text: 'Add new task',
   color: '#c80000',
   // @ts-ignore
-  icon: require('./images/plus.png'),
+  icon: require('../images/plus.png'),
   name: 'add',
   position: 2
 }, {
   text: 'Filter',
   color: '#c80000',
   // @ts-ignore
-  icon: require('./images/fiterv2.png'),
+  icon: require('../images/fiterv2.png'),
   name: 'filter',
   position: 1
 }];
@@ -51,9 +51,9 @@ export class OpenModal extends Component {
               source={
                 this.state.fabPressed ? 
                 // @ts-ignore
-                require("./images/xv3.png") :
+                require("../images/xv3.png") :
                 // @ts-ignore
-                require("./images/hamburger.png")
+                require("../images/hamburger.png")
               }
             />
           )}

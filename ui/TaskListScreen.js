@@ -8,9 +8,9 @@ import {
   View
 } from "react-native";
 import { TaskItem } from './TaskItem';
-import { Controller } from './js/Controller';
+import { Controller } from '../js/Controller';
 import { OpenModal } from './OpenModal';
-import { Database } from './js/Database';
+import { Database } from '../js/Database';
 
 const DEBUG = false;
 if(DEBUG) {

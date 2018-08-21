@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Controller } from './js/Controller';
+import { Controller } from '../js/Controller';
 import { TaskForm } from './TaskForm';
-import { NULL_DATE } from './js/Database';
+import { NULL_DATE } from '../js/Database';
 
 export class AddTaskScreen extends Component {
   static navigationOptions = {
