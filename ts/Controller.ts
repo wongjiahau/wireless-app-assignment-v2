@@ -26,7 +26,7 @@ function createTask(
     const newTask: Task = {
         title: title,
         content: content,
-        reminder: reminder ? reminder.getTime() : null ,
+        reminder: reminder ? reminder.getTime() : -1 ,
         pinned: 0,
         completed: 0,
     };

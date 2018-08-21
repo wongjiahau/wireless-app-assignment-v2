@@ -8,6 +8,7 @@ import {
   Modal
 } from 'react-native';
 import { Icon,Button } from 'react-native-elements'
+import { formatDate } from './util';
 
 const buttonStyle = {
   height : 100,
@@ -31,6 +32,18 @@ export class TaskItem extends React.Component {
     return (
       <View style={styles.container}>
         <View>
+          <TouchableHighlight
+            style={{height: 80}}
+            onPress={() => {
+              this.setModalVisible(true);
+            }}>
+            <View>
+              <Text style={styles.heading1}>{this.props.title}</Text>
+              {!this.props.reminder ? null :
+              <Text style={styles.subtitle}>{"Reminder: " + formatDate(this.props.reminder)}</Text>
+              }
+            </View>
+          </TouchableHighlight>
           <Modal
             animationType="slide"
             transparent={false}
@@ -40,7 +53,7 @@ export class TaskItem extends React.Component {
             }}>
             <View style={{ marginTop: -10 }}>
               <View style={styles.buttonView}>
-                <Text style={styles.textStyling}>{this.props.title}</Text>
+                <Text style={styles.heading1}>{this.props.title}</Text>
                 <Button style={styles.buttons}
                     large
                     icon={{name: 'edit', type:'font-awesome'}}
@@ -91,16 +104,6 @@ export class TaskItem extends React.Component {
               </View>
             </View>
           </Modal>
-
-          <TouchableHighlight
-            onPress={() => {
-              this.setModalVisible(true);
-            }}>
-            <View>
-            <Text style={styles.textStyling}>{this.props.title}</Text>
-            </View>
-          </TouchableHighlight>
-          
         </View>
       </View>
     );
@@ -115,13 +118,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#fff',
   },
-  textStyling: {
+  heading1: {
     width: 360,
-    height: 70, 
     paddingTop: 10, 
     paddingBottom: 10, 
     paddingLeft: 10, 
     fontSize: 20,
+  },
+  subtitle: {
+    paddingBottom: 10,
+    paddingLeft: 10
   },
   buttonView: {
     paddingTop: 80,

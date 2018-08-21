@@ -61,6 +61,7 @@ export class TaskListScreen extends React.Component {
         key={x.id}
         title={x.title}
         pinned={x.pinned}
+        reminder={x.reminder}
         handleEdit={() => this.handleEdit(x)}
         handleDelete={() => this.handleDelete(x)}
         handleTogglePin={() => this.handleTogglePin(x)}

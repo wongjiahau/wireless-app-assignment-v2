@@ -4,5 +4,5 @@ export interface Task {
     content: string;
     pinned: 0 | 1;
     completed: 0 | 1;
-    reminder: number | null; // epoch time in minutes
+    reminder: number | -1; // epoch time in minutes, -1 means null
 }
