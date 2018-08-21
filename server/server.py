@@ -25,17 +25,18 @@ def signup():
     """, (request.json["email"],))
 
     if result:
-        return jsonify({"error": "Email already exist"}), 403
+        return jsonify({"error": "Email already exist"}), 200
     else:
-        response = changeData("""
+        changeData("""
             INSERT INTO user(email, password)
             VALUES (?,?)
         """, (request.json["email"], request.json["password"]))
+
         return jsonify("OK"), 200
 
 @app.route('/api/get_session_id', methods=['GET'])
 def get_session_id():
-    return jsonify(int(round(time.time() * 1000))), 200
+    return jsonify(int(round(time.time()))), 200
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -43,17 +44,18 @@ def login():
         abort(404)
     
     user_id = fetch_user_id(request.json["email"], request.json["password"])
-    session_id = request["session_id"]
+
+    if not user_id:
+        return jsonify({"error": "Invalid email or password."}), 200
+
+    session_id = request.json["session_id"]
 
     changeData("""
         INSERT INTO session (id, user_id)
         VALUES(?,?)
     """, (session_id, user_id))
 
-    return jsonify({
-        "matching_user_id": user_id,
-        "session_id": session_id
-    }), 200
+    return jsonify("OK"), 200
 
 @app.route('/api/logout', methods=['POST'])
 def logout():

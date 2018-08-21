@@ -13,6 +13,9 @@ import {
 import { Logo } from './Logo';
 
 export class RegisterScreen extends Component {
+  static navigationOptions = {
+    header: null
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -20,9 +23,6 @@ export class RegisterScreen extends Component {
       password: "",
       password2: ""
     }
-  }
-  static navigationOptions = {
-    header: null
   }
   render() {
     return (
@@ -77,14 +77,10 @@ export class RegisterScreen extends Component {
       Alert.alert("Error", "Passwords are not matching");
     } else {
       try {
-        const response = await WebServer.register({
+        await WebServer.register({
           email: this.state.email,
           password: this.state.password
         });
-        const json = await response.json();
-        if(json === "OK") {
-          //TODO: do something
-        } 
       } catch (error) {
         Alert.alert("Error", error.message);
       }

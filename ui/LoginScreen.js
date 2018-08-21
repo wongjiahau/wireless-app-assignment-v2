@@ -1,9 +1,28 @@
 //http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet,
+  Alert
+} from 'react-native';
 import { Logo } from './Logo';
+import { WebServer } from '../js/WebServer';
 
 export class LoginScreen extends Component {
+  static navigationOptions = {
+    header: null
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -14,6 +33,7 @@ export class LoginScreen extends Component {
             autoCorrect={false}
             keyboardType='email-address'
             returnKeyType="next"
+            onChangeText={(text) => this.setState({email: text})}
             onSubmitEditing={() => this.passwordInput.focus()}
             placeholder='Email'
             placeholderTextColor='grey' />
@@ -23,14 +43,33 @@ export class LoginScreen extends Component {
             ref={(input) => this.passwordInput = input}
             placeholder='Password'
             placeholderTextColor='grey'
+            onChangeText={(text) => this.setState({password: text})}
+            onEndEditing={this.handleLogin}
             secureTextEntry={true} />
           <TouchableOpacity style={styles.buttonContainer}
-            onPress={() => {}}>
+            onPress={this.handleLogin}>
             <Text style={styles.buttonText}>LOGIN</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
+  }
+
+  handleLogin = async () => {
+    if(this.state.email.length === 0) {
+      Alert.alert("Error", "Please fill in your email.");
+    } else if(this.state.password.length === 0) {
+      Alert.alert("Error", "Please fill in your password.");
+    } else {
+      try{
+        await WebServer.login({
+          email: this.state.email,
+          password: this.state.password
+        });
+      } catch(error) {
+        Alert.alert("Error", error.message)
+      }
+    }
   }
 }
 
