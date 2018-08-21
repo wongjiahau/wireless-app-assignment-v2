@@ -53,7 +53,7 @@ export class OpenModal extends Component {
                 // @ts-ignore
                 require("./images/xv3.png") :
                 // @ts-ignore
-                require("./images/plus.png")
+                require("./images/hamburger.png")
               }
             />
           )}
