@@ -1,4 +1,4 @@
-export const API = (operation: ApiOption) => `http://172.16.130.135:5000/api/${operation}`;
+export const API = (operation: ApiOption) => `http://192.168.0.9:5000/api/${operation}`;
 
 export type ApiOption = "signup" | "login" | "get_session_id";
 
@@ -14,12 +14,13 @@ async function register(userDetail: UserDetail) {
   }
 }
 
-async function login(userDetail: UserDetail) {
+async function login(userDetail: UserDetail): string {
   const sessionId = await (await fetch(API("get_session_id"))).json();
   const response = await (await fetchData("login", {...userDetail, session_id: sessionId})).json();
   if (response.error) {
     throw new Error(response.error);
   }
+  return sessionId;
 }
 
 async function fetchData<T>(api: ApiOption, body: T): Promise<any> {

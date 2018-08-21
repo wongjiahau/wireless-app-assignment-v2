@@ -9,7 +9,7 @@ import {
   Alert
 } from 'react-native';
 import { Logo } from './Logo';
-import { WebServer } from '../js/WebServer';
+import { Controller } from '../js/Controller';
 
 export class LoginScreen extends Component {
   static navigationOptions = {
@@ -62,10 +62,11 @@ export class LoginScreen extends Component {
       Alert.alert("Error", "Please fill in your password.");
     } else {
       try{
-        await WebServer.login({
+        await Controller.login({
           email: this.state.email,
           password: this.state.password
         });
+        this.props.navigation.navigate("TaskListScreen");
       } catch(error) {
         Alert.alert("Error", error.message)
       }

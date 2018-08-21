@@ -1,6 +1,5 @@
 //http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
 import React, { Component } from 'react';
-import { WebServer } from '../js/WebServer';
 import { 
   View, 
   Text, 
@@ -11,6 +10,7 @@ import {
   Alert
 } from 'react-native';
 import { Logo } from './Logo';
+import { Controller } from '../js/Controller';
 
 export class RegisterScreen extends Component {
   static navigationOptions = {
@@ -77,7 +77,7 @@ export class RegisterScreen extends Component {
       Alert.alert("Error", "Passwords are not matching");
     } else {
       try {
-        await WebServer.register({
+        await Controller.register({
           email: this.state.email,
           password: this.state.password
         });

@@ -23,6 +23,13 @@ const actions = [{
   icon: require('../images/fiterv2.png'),
   name: 'filter',
   position: 1
+},{
+  text: 'Upload',
+  color: '#c80000',
+  // @ts-ignore
+  icon: require('../images/upload.jpeg'),
+  name: 'upload',
+  position: 0
 }];
 
 var radio_props = [
