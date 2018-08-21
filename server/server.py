@@ -62,7 +62,6 @@ def logout():
     if not request.json:
         abort(404)
 
-    print(request.json["session_id"]) 
     return jsonify(changeData("""
         DELETE FROM session
         WHERE id = ?
@@ -96,7 +95,7 @@ def upload_task():
 
     changeData("""
         DELETE FROM task WHERE user_id = ?
-    """, (request.json["session_id"],))
+    """, (user_id,))
 
     for task in request.json["tasks"]:
         new_task = (
@@ -163,11 +162,13 @@ def parseUser(row):
     
 def parseTask(row):
     return {
-        'id':         row[0],
-        'user_id':     row[1],
-        'title':     row[2],
-        'content':     row[3],
+        'user_id':    row[0],
+        'id':         row[1],
+        'title':      row[2],
+        'content':    row[3],
         'pinned':     row[4],
+        'completed':  row[5],
+        'reminder':   row[6]
     }
 
 def parseReminder(row):

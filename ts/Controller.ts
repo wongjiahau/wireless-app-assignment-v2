@@ -1,6 +1,6 @@
 import { Database, NULL_DATE, QueryCallback } from "./Database";
 import { deleteSessionId, getSessionId, storeSessionId } from "./SimpleStorage";
-import { Task } from "./Task";
+import { ConvertedTask, Task } from "./Task";
 import { UserDetail, WebServer } from "./WebServer";
 
 export type NullDate = -1;
@@ -27,7 +27,11 @@ async function uploadTask(successCallback: () => void) {
     try {
         const sessionId = await getSessionId();
         getAllTask(async (tasks) => {
-            await WebServer.upload(sessionId, tasks);
+            const t: Task[] = tasks.map((x) => ({
+                ...x,
+                reminder: x.reminder === NULL_DATE ? NULL_DATE : x.reminder.getTime(),
+            }));
+            await WebServer.upload(sessionId, t);
             successCallback();
         });
     } catch (error) {
@@ -82,20 +86,20 @@ function deleteTask(taskId: number, callback: QueryCallback) {
     Database.deleteTask(taskId, callback);
 }
 
-function getAllTask(callback: (results: Task[]) => void) {
-    Database.retrieveTask((tasks: Task[]) => {
+function getAllTask(callback: (results: ConvertedTask[]) => void) {
+    Database.retrieveTask((tasks: ConvertedTask[]) => {
         callback(tasks) ;
     });
 }
 
-function getCompletedTask(callback: (results: Task[]) => void) {
-    Database.retrieveTask((tasks: Task[]) => {
+function getCompletedTask(callback: (results: ConvertedTask[]) => void) {
+    Database.retrieveTask((tasks: ConvertedTask[]) => {
         callback(tasks.filter((x) => x.completed === 1)) ;
     });
 }
 
-function getOnGoingTask(callback: (results: Task[]) => void) {
-    Database.retrieveTask((tasks: Task[]) => {
+function getOnGoingTask(callback: (results: ConvertedTask[]) => void) {
+    Database.retrieveTask((tasks: ConvertedTask[]) => {
         callback(tasks.filter((x) => x.completed === 0)) ;
     });
 }

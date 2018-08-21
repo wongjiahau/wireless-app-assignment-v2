@@ -33,6 +33,8 @@ async function upload(sessionId: string, tasks: Task[]) {
   await postData("task", {session_id: sessionId, tasks: tasks});
 }
 
+// async function download(sessionId: string)
+
 async function postData<T>(api: ApiOption, body: T): Promise<any> {
   return await fetch(API(api), {
     method: "POST",
@@ -49,4 +51,5 @@ export const WebServer = {
   login: login,
   logout: logout,
   upload: upload,
+  // download: download,
 };

@@ -1,7 +1,3 @@
-/**
- * Name: Wong Jia Hau
- * Reg. No.: 1500181
- */
 import SQLite from "react-native-sqlite-storage";
 import { Task } from "./Task";
 
