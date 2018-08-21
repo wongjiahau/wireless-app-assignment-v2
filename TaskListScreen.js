@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { TaskItem } from './TaskItem';
 import { Controller } from './js/Controller';
+import { OpenModal } from './OpenModal';
 
 export class TaskListScreen extends React.Component {
     constructor(props) {
@@ -26,30 +27,32 @@ export class TaskListScreen extends React.Component {
         const pinnedTask = this.state.tasks.filter((x) => x.pinned === 1);
         const unpinnedTask = this.state.tasks.filter((x) => x.pinned === 0);
         return (
-            <ScrollView style={styles.container}>
-                {
-                    this.state.tasks.length > 0 ? null :
-                    <View>
-                        <Text>There is no on going task.</Text>
-                    </View>
+            <OpenModal>
+                <ScrollView style={styles.container}>
+                    {
+                        this.state.tasks.length > 0 ? null :
+                        <View>
+                            <Text>There is no on going task.</Text>
+                        </View>
 
-                }
-                {
-                    pinnedTask.length === 0 ? null: 
-                    <View>
-                        <Text style={styles.header}>Pinned tasks</Text>
-                        {this.renderTask(pinnedTask)}
-                    </View>
-                }
-                <Text>{"\n"}</Text>
-                {
-                    unpinnedTask.length === 0 ? null:
-                    <View>
-                        <Text style={styles.header}>Unpinned tasks</Text>
-                        {this.renderTask(unpinnedTask)}
-                    </View>
-                }
-            </ScrollView>
+                    }
+                    {
+                        pinnedTask.length === 0 ? null: 
+                        <View>
+                            <Text style={styles.header}>Pinned tasks</Text>
+                            {this.renderTask(pinnedTask)}
+                        </View>
+                    }
+                    <Text>{"\n"}</Text>
+                    {
+                        unpinnedTask.length === 0 ? null:
+                        <View>
+                            <Text style={styles.header}>Unpinned tasks</Text>
+                            {this.renderTask(unpinnedTask)}
+                        </View>
+                    }
+                </ScrollView>
+            </OpenModal>
         )
     }
 
