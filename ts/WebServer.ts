@@ -1,4 +1,4 @@
-export const API = (operation: Operation) => `http://192.168.1.103:5000/api/${operation}`;
+export const API = (operation: Operation) => `http://172.16.130.135:5000/api/${operation}`;
 
 export type Operation = "signup";
 

@@ -15,7 +15,23 @@ def home():
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
-    return jsonify("OK"), 200
+    if not request.json:
+        abort(404)
+
+    result = fetchData(parseUser, 
+    """
+    SELECT * FROM user
+    WHERE email = ?
+    """, (request.json["email"],))
+
+    if result:
+        return jsonify({"error": "Email already exist"}), 403
+    else:
+        response = changeData("""
+            INSERT INTO user(email, password)
+            VALUES (?,?)
+        """, (request.json["email"], request.json["password"]))
+        return jsonify("OK"), 200
 
 @app.route('/api/get_session_id', methods=['GET'])
 def get_session_id():
@@ -140,7 +156,8 @@ def parseSession(row):
 def parseUser(row):
     return {
         'id':         row[0],
-        'email':     row[1],
+        'email':      row[1],
+        'password':   row[2],
     }
     
 def parseTask(row):

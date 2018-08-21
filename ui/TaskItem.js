@@ -89,8 +89,8 @@ export class TaskItem extends React.Component {
                     ...buttonStyle
                   }} 
                   onPress={() => {
-                    this.props.handleTogglePin();
                     this.setModalVisible(false);
+                    this.props.handleTogglePin();
                   }}
                   />
 
