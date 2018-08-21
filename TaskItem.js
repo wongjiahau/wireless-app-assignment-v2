@@ -53,34 +53,34 @@ export class TaskItem extends React.Component {
                   />
 
                 <Button style={styles.buttons}
-                large
-                icon={{name: 'delete', type:'material-community'}}
-                title='DELETE'
-                buttonStyle={{
-                  backgroundColor: "#b22222",
-                  ...buttonStyle
+                  large
+                  icon={{name: 'delete', type:'material-community'}}
+                  title='DELETE'
+                  buttonStyle={{
+                    backgroundColor: "#b22222",
+                    ...buttonStyle
                   }} 
                   onPress={this.props.handleDelete}
                   />
 
                 <Button style={styles.buttons}
-                large
-                icon={{name: 'pin', type:'entypo'}}
-                title='PIN'
-                buttonStyle={{
-                  backgroundColor: "#87ceeb",
-                  ...buttonStyle
+                  large
+                  icon={!this.props.pinned ? {name: 'pin', type:'entypo'} : {name: 'pin-off', type: 'material-community'}}
+                  title={this.props.pinned ? 'UNPIN' : 'PIN'}
+                  buttonStyle={{
+                    backgroundColor: "#87ceeb",
+                    ...buttonStyle
                   }} 
                   onPress={this.props.handleTogglePin}
                   />
 
                 <Button style={styles.buttons}
-                large
-                icon={{name: 'check', type:'feather'}}
-                title='MARK COMPLETE'
-                buttonStyle={{
-                  backgroundColor: "#20b2aa",
-                  ...buttonStyle
+                  large
+                  icon={{name: 'check', type:'feather'}}
+                  title='MARK AS COMPLETE'
+                  buttonStyle={{
+                    backgroundColor: "#20b2aa",
+                    ...buttonStyle
                   }} 
                   onPress={this.props.handleToggleComplete}
                   />

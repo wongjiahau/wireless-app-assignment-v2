@@ -1,7 +1,3 @@
-/**
- * Name: Wong Jia Hau
- * Reg. No.: 1500181
- */
 import React, { Component } from 'react';
 import {
   Alert,
@@ -64,6 +60,7 @@ export class TaskListScreen extends React.Component {
       <TaskItem 
         key={x.id}
         title={x.title}
+        pinned={x.pinned}
         handleEdit={() => this.handleEdit(x)}
         handleDelete={() => this.handleDelete(x)}
         handleTogglePin={() => this.handleTogglePin(x)}
