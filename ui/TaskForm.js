@@ -12,8 +12,8 @@ import {
     ToastAndroid
 } from "react-native";
 import { formatDate } from '../util';
-import { CustomButton } from './HomeScreen';
 import { NULL_DATE } from '../js/Database';
+import { CustomButton } from './CustomButton';
 
 export class TaskForm extends Component {
   constructor(props) {
