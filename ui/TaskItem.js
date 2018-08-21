@@ -88,7 +88,10 @@ export class TaskItem extends React.Component {
                     backgroundColor: "#87ceeb",
                     ...buttonStyle
                   }} 
-                  onPress={this.props.handleTogglePin}
+                  onPress={() => {
+                    this.props.handleTogglePin();
+                    this.setModalVisible(false);
+                  }}
                   />
 
                 <Button style={styles.buttons}
