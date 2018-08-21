@@ -1,4 +1,7 @@
 //http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
+import {
+  NavigationActions,
+} from "react-navigation";
 import React, { Component } from 'react';
 import { 
   View, 
@@ -10,6 +13,7 @@ import {
 } from 'react-native';
 import { Logo } from './Logo';
 import { Controller } from '../js/Controller';
+import { sessionIdIsPresent } from '../js/SimpleStorage';
 
 export class LoginScreen extends Component {
   static navigationOptions = {
@@ -21,6 +25,12 @@ export class LoginScreen extends Component {
       email: "",
       password: ""
     };
+  }
+
+  async componentWillMount() {
+    if(await sessionIdIsPresent()) {
+      this.props.navigation.navigate("TaskListScreen");
+    }
   }
 
   render() {

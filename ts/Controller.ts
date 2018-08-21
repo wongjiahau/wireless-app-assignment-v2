@@ -1,5 +1,5 @@
 import { Database, NULL_DATE, QueryCallback } from "./Database";
-import { getSessionId, storeSessionId } from "./SimpleStorage";
+import { deleteSessionId, getSessionId, storeSessionId } from "./SimpleStorage";
 import { Task } from "./Task";
 import { UserDetail, WebServer } from "./WebServer";
 
@@ -8,7 +8,8 @@ export type NullDate = -1;
 export const Controller = {
     register: register,
     login: login,
-    // logout:
+    logout: logout,
+    // downloadTask
     uploadTask: uploadTask,
     createTask: createTask,
     updateTask: updateTask,
@@ -42,6 +43,16 @@ async function login(userDetail: UserDetail) {
     const sessionId = await WebServer.login(userDetail);
     try {
         storeSessionId(sessionId);
+    } catch (error) {
+        alert(error);
+    }
+}
+
+async function logout() {
+    const sessionId = await getSessionId();
+    try {
+        await WebServer.logout(sessionId);
+        await deleteSessionId();
     } catch (error) {
         alert(error);
     }

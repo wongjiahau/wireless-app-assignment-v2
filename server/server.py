@@ -61,12 +61,13 @@ def login():
 def logout():
     if not request.json:
         abort(404)
-    
+
+    print(request.json["session_id"]) 
     return jsonify(changeData("""
         DELETE FROM session
         WHERE id = ?
-        """, (request.json["session_id"],))
-    ) , 200
+        """, (request.json["session_id"],)
+    )) , 200
 
 
 @app.route('/api/admin/see_table/<string:table>', methods=['GET'])

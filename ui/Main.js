@@ -1,5 +1,5 @@
 import {
-  createStackNavigator
+  createStackNavigator,
 } from "react-navigation";
 import { AddTaskScreen } from "./AddTaskScreen";
 import { TaskListScreen } from "./TaskListScreen";

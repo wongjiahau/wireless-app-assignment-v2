@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Alert,
+  Button,
   ScrollView,
   StyleSheet,
   ToastAndroid,
@@ -18,6 +19,13 @@ if(DEBUG) {
 }
 
 export class TaskListScreen extends React.Component {
+  static navigationOptions = {
+    title: "Task Reminder App",
+    headerLeft: null,
+    headerRight: (<Button title="logout" onPress={Controller.logout}/>)
+  } 
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -184,10 +192,6 @@ export class TaskListScreen extends React.Component {
   componentWillUnmount() {
     this.subs.forEach(sub => sub.remove());
   }
-}
-
-TaskListScreen.navigationOptions = {
-  title: "View tasks"
 }
 
 const styles = StyleSheet.create({
