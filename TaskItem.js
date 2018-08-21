@@ -49,7 +49,10 @@ export class TaskItem extends React.Component {
                     backgroundColor: "#daa520",
                     ...buttonStyle
                     }} 
-                    onPress={this.props.handleEdit}
+                    onPress={() => {
+                      this.setModalVisible(false);
+                      this.props.handleEdit();
+                    }}
                   />
 
                 <Button style={styles.buttons}
