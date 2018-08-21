@@ -1,4 +1,4 @@
-import { Database, QueryCallback } from "./Database";
+import { Database, NULL_DATE, QueryCallback } from "./Database";
 import { Task } from "./Task";
 
 export const Controller = {
@@ -26,7 +26,7 @@ function createTask(
     const newTask: Task = {
         title: title,
         content: content,
-        reminder: reminder ? reminder.getTime() : -1 ,
+        reminder: reminder ? reminder.getTime() : NULL_DATE ,
         pinned: 0,
         completed: 0,
     };

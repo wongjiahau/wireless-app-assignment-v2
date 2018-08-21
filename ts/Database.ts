@@ -5,6 +5,8 @@
 import SQLite from "react-native-sqlite-storage";
 import { Task } from "./Task";
 
+export const NULL_DATE = -1;
+
 const db = SQLite.openDatabase({
     name: "taskdb",
     createFromLocation : "~db.sqlite",
@@ -40,7 +42,7 @@ function retrieveTask(callback: QueryCallback) {
         result = result.map((x: any) => (
             {
                 ...x,
-                reminder: x.reminder !== -1 ? new Date(x.reminder) : null,
+                reminder: x.reminder !== NULL_DATE ? new Date(x.reminder) : null,
             }),
         );
         callback(result);
