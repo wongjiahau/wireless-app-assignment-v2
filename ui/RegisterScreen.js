@@ -1,9 +1,26 @@
 //http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView,Image, TextInput, TouchableOpacity, StyleSheet, } from 'react-native';
+import { WebServer } from '../js/WebServer';
+import { 
+  View, 
+  Text, 
+  KeyboardAvoidingView,
+  TextInput, 
+  TouchableOpacity, 
+  StyleSheet, 
+  Alert
+} from 'react-native';
 import { Logo } from './Logo';
 
 export class RegisterScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      password2: ""
+    }
+  }
   static navigationOptions = {
     header: null
   }
@@ -13,33 +30,65 @@ export class RegisterScreen extends Component {
         <Logo/>
         <View style={styles.formContainer}>
           <TextInput style={styles.input}
+            value={this.state.email}
             autoCapitalize="none" 
             autoCorrect={false}
             keyboardType='email-address'
-            returnKeyType="next"
+            returnKeyType="next" 
+            onChangeText={(email) => this.setState({email})}
             onSubmitEditing={() => this.passwordInput.focus()}
             placeholder='Email'
             placeholderTextColor='grey' />
+
           <TextInput style={styles.input}
+            value={this.state.password}
             returnKeyType="next"
+            onChangeText={(password) => this.setState({password})}
             onSubmitEditing={() => this.confirmPasswordInput.focus()}
-            ref={(input) => this.passwordInput = input}
             placeholder='Password'
+            ref={(input) => this.passwordInput = input}
             placeholderTextColor='grey'
             secureTextEntry={true}/>
+
           <TextInput style={styles.input}
+            value={this.state.password2}
             returnKeyType="go"
+            onChangeText={(password2) => this.setState({password2})}
             ref={(input) => this.confirmPasswordInput = input}
             placeholder='Confirm password'
             placeholderTextColor='grey'
+            onEndEditing={this.handleRegister}
             secureTextEntry={true}/>
           <TouchableOpacity style={styles.buttonContainer}
-            onPress={this.props.onPressonButtonPress}>
+            onPress={this.handleRegister}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     );
+  }
+
+  handleRegister = async () => {
+    if(this.state.email.length === 0) {
+      Alert.alert("Error", "Please fill in your Email.");
+    } else if(this.state.password.length === 0) {
+      Alert.alert("Error", "Please fill in password");
+    } else if(this.state.password !== this.state.password2) {
+      Alert.alert("Error", "Passwords are not matching");
+    } else {
+      try {
+        const response = await WebServer.register({
+          email: this.state.email,
+          password: this.state.password
+        });
+        const json = await response.json();
+        if(json === "OK") {
+          //TODO: do something
+        } 
+      } catch (error) {
+        Alert.alert("Error", error.message);
+      }
+    }
   }
 }
 

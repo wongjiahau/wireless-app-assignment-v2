@@ -15,8 +15,7 @@ export class LoginScreen extends Component {
             keyboardType='email-address'
             returnKeyType="next"
             onSubmitEditing={() => this.passwordInput.focus()}
-            placeholder
-            ='Email'
+            placeholder='Email'
             placeholderTextColor='grey' />
 
           <TextInput style={styles.input}

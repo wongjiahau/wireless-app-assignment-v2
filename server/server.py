@@ -15,11 +15,11 @@ def home():
 
 @app.route('/api/signup', methods=['POST'])
 def signup():
-  pass
+    return jsonify("OK"), 200
 
 @app.route('/api/get_session_id', methods=['GET'])
 def get_session_id():
-  return jsonify(int(round(time.time() * 1000))), 200
+    return jsonify(int(round(time.time() * 1000))), 200
 
 @app.route('/api/login', methods=['POST'])
 def login():
