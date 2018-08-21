@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Icon } from "react-native-elements";
 import {
     Alert,
     View,
@@ -52,19 +53,27 @@ export class TaskForm extends Component {
           />
 
         <Text style={styles.header}>Reminder</Text>
-        <TouchableOpacity
-          style={{paddingLeft: 10, marginBottom: 40}}
-          onPress={this.handlePickDate}>
-          <View>
-            <Text style={styles.textField}>
-              {
-                this.state.task.reminder !== NULL_DATE ?
-                formatDate(new Date(this.state.task.reminder)) :
-                "Click to add reminder"
-              }
-            </Text>
-          </View>
-        </TouchableOpacity>
+        <View style={{flexDirection: "row", marginBottom: 40}}>
+          <TouchableOpacity
+            style={{paddingLeft: 10}}
+            onPress={this.handlePickDate}>
+            <View>
+              <Text style={styles.textField}>
+                {
+                  this.state.task.reminder !== NULL_DATE ?
+                  formatDate(new Date(this.state.task.reminder)) :
+                  "Click to add reminder"
+                }
+              </Text>
+            </View>
+          </TouchableOpacity>
+          {this.state.task.reminder === NULL_DATE ? null :
+          <TouchableOpacity style={{marginLeft: 10, marginTop: 3}} onPress={()=>{
+            this.setState({task: {...this.state.task, reminder: NULL_DATE}})
+            }}>
+              <Icon type='feather' name='x' />
+          </TouchableOpacity>}
+        </View>
         <CustomButton onPress={() => {
           if(!this.state.task.title) {
             Alert.alert("Please fill in Title.")

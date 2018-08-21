@@ -1,6 +1,8 @@
 import { Database, NULL_DATE, QueryCallback } from "./Database";
 import { Task } from "./Task";
 
+export type NullDate = -1;
+
 export const Controller = {
     // signUp:
     // login:
@@ -20,13 +22,13 @@ export const Controller = {
 function createTask(
     title: string,
     content: string,
-    reminder: Date | null,
+    reminder: Date | NullDate,
     callback: QueryCallback,
 ) {
     const newTask: Task = {
         title: title,
         content: content,
-        reminder: reminder ? reminder.getTime() : NULL_DATE ,
+        reminder: reminder !== NULL_DATE ? reminder.getTime() : NULL_DATE ,
         pinned: 0,
         completed: 0,
     };
