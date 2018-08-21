@@ -10,12 +10,20 @@ import {
 import { TaskItem } from './TaskItem';
 import { Controller } from './js/Controller';
 import { OpenModal } from './OpenModal';
+import { Database } from './js/Database';
+
+const DEBUG = false;
+if(DEBUG) {
+  Database.reinitializeDatabase();
+}
 
 export class TaskListScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: []
+      tasks: [],
+      showCompletedTasks: false,
+      showOnGoingTasks: true
     };
     this.subs = [
       this.props.navigation.addListener('didFocus', () => this.refresh()),
@@ -23,31 +31,66 @@ export class TaskListScreen extends React.Component {
   }
 
   render() {
-    const pinnedTask = this.state.tasks.filter((x) => x.pinned === 1);
-    const unpinnedTask = this.state.tasks.filter((x) => x.pinned === 0);
-    return (
-      <OpenModal navigation={this.props.navigation}>
-        <ScrollView style={styles.container}>
-          {
-            this.state.tasks.length > 0 ? null :
-            <View>
-              <Text>There is no on going task.</Text>
-            </View>
+    const onGoingTasks = this.state.tasks.filter((x) => x.completed === 0);
+    const pinnedTask   = onGoingTasks.filter((x) => x.pinned === 1);
+    const unpinnedTask = onGoingTasks.filter((x) => x.pinned === 0);
 
-          }
-          {
-            pinnedTask.length === 0 ? null: 
+    const completedTask = this.state.tasks.filter((x) => x.completed === 1);
+    return (
+      <OpenModal 
+        navigation={this.props.navigation}
+        handleShowOnGoingTasks={()=>{
+          this.setState({
+            showOnGoingTasks: true,
+            showCompletedTasks: false
+          })
+        }} 
+        handleShowCompletedTasks={()=>{
+          this.setState({
+            showOnGoingTasks: false,
+            showCompletedTasks: true
+          })
+        }}
+        handleAllTasks={()=>{
+          this.setState({
+            showOnGoingTasks: true,
+            showCompletedTasks: true
+          })
+        }}
+        >
+        <ScrollView style={styles.container}>
+          {!this.state.showOnGoingTasks ? null :
             <View>
-              <Text style={styles.header}>Pinned tasks</Text>
-              {this.renderTask(pinnedTask)}
-            </View>
-          }
-          <Text>{"\n"}</Text>
-          {
-            unpinnedTask.length === 0 ? null:
+              {onGoingTasks.length > 0 ? null :
+              <View>
+                <Text>There is no on going task.</Text>
+              </View>}
+
+              {pinnedTask.length === 0 ? null: 
+              <View>
+                <Text style={styles.header}>Pinned tasks</Text>
+                {this.renderTask(pinnedTask)}
+              </View>}
+
+              <Text>{"\n"}</Text>
+
+              {unpinnedTask.length === 0 ? null:
+              <View>
+                <Text style={styles.header}>Unpinned tasks</Text>
+                {this.renderTask(unpinnedTask)}
+              </View>}
+            </View>}
+          {!this.state.showCompletedTasks ? null :
             <View>
-              <Text style={styles.header}>Unpinned tasks</Text>
-              {this.renderTask(unpinnedTask)}
+              {completedTask.length > 0 ? null :
+              <View>
+                <Text>There is no completed task.</Text>
+              </View>}
+              {completedTask.length === 0 ? null : 
+              <View>
+                <Text style={styles.header}>Completed tasks</Text> 
+                {this.renderTask(completedTask)}
+              </View>}
             </View>
           }
           <Text>{"\n\n"}</Text>
@@ -131,7 +174,7 @@ export class TaskListScreen extends React.Component {
   }
 
   refresh() {
-    Controller.getOnGoingTask((tasks) => {
+    Controller.getAllTask((tasks) => {
       this.setState({tasks: tasks});
     });
   }

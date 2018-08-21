@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   Image,
   StyleSheet,
-  Text, TouchableOpacity,
+  Text, 
+  TouchableOpacity,
   View
 } from 'react-native';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import Modal from "react-native-modal";
 import FloatingAction from './react-native-floating-action/component/FloatingAction';
 
@@ -35,8 +34,7 @@ export class OpenModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false,
-      visibleModal: null,
+      modalVisible: null,
       fabPressed: false
     };
   }
@@ -69,50 +67,53 @@ export class OpenModal extends Component {
                 break;
               case 'filter':
                 this.closeFab();
-                this.setState({ visibleModal: 1 });
+                this.setState({ modalVisible: 1 });
                 break;
             }
           }
           }
         />
 
-        {!this.state.visibleModal ? null :
+        {!this.state.modalVisible ? null :
         <Modal
-          isVisible={this.state.visibleModal === 1}
+          isVisible={this.state.modalVisible === 1}
           onBackdropPress={() => {
-            this.setState({ visibleModal: null });
+            this.setState({ modalVisible: null });
             this.closeFab();
           }}
           animationIn={'zoomInDown'}
           animationOut={'zoomOutUp'}
-          animationInTiming={1000}
-          animationOutTiming={1000}
-          backdropTransitionInTiming={1000}
-          backdropTransitionOutTiming={1000}
+          animationInTiming={150}
+          animationOutTiming={150}
           >
           <View style={styles.modalContent}>
-            <RadioForm
-            style={{ alignItems: 'flex-start' }}
-              radio_props={radio_props}
-              initial={0}
-              formHorizontal={false}
-              labelHorizontal={true}
-              buttonColor={'#2196f3'}
-              animation={true}
-              onPress={(value) => { this.setState({ value: value }) }}
-            />
-            <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText} >Close</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={styles.buttonRow}>
+              <TouchableOpacity style={styles.button} onPress={()=>{
+                this.closeFab();
+                this.props.handleShowOnGoingTasks();
+                }}>
+                  <Text style={styles.text}> Show On-Going Task</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={()=>{
+                this.closeFab();
+                this.props.handleShowCompletedTasks();
+                }}>
+                  <Text style={styles.text}> Show Completed Task </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={()=>{
+                this.closeFab();
+                this.props.handleAllTasks();
+                }}>
+                  <Text style={styles.text}> Show All Task</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modal>}
       </View>
     ); 
   }
 
-  closeFab = () => this.setState({fabPressed: false})
+  closeFab = () => this.setState({fabPressed: false, modalVisible: null})
 }
 
 const styles = StyleSheet.create({
@@ -121,34 +122,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  welcome: {
+  text: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
   button: {
+    flex:1,
     backgroundColor: 'lightblue',
-    padding: 12,
-    margin: 16,
+    padding: 10,
+    margin:5,
+    width:300,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
+    borderColor: 'grey',
   },
-  buttonText:{
-    
+  buttonRow: {
+    margin: 40,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
   },
   modalContent: {
     backgroundColor: 'white',
     padding: 22,
     justifyContent: 'center',
+    height:400,
     alignItems: 'center',
     borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    borderColor: 'grey',
   },
 });
