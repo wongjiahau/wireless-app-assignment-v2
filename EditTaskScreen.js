@@ -1,16 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Alert,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  DatePickerAndroid,
-  ToastAndroid
-} from "react-native";
-import { formatDate } from './util';
-import { CustomButton } from './HomeScreen';
 import { Controller } from './js/Controller';
 import { TaskForm } from './TaskForm';
 
@@ -33,7 +21,7 @@ export class EditTaskScreen extends Component {
         )}
         navigation={this.props.navigation}
         buttonText="UPDATE TASK"
-        renderMessage={(task) => `Task updated.`}
+        renderMessage={() => `Task updated.`}
       />
     )
   }
