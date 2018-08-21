@@ -37,7 +37,12 @@ function retrieveTask(callback: QueryCallback) {
     return query(`
     SELECT * FROM task t
     `, [], (result) => {
-        result = result.map((x: any) => ({...x, reminder: new Date(x.reminder)}));
+        result = result.map((x: any) => (
+            {
+                ...x,
+                reminder: x.reminder !== -1 ? new Date(x.reminder) : null,
+            }),
+        );
         callback(result);
     });
 }
