@@ -60,8 +60,8 @@ export class TaskItem extends React.Component {
                     icon={{name: 'edit', type:'font-awesome'}}
                     title='EDIT'
                     buttonStyle={{
-                    backgroundColor: "#daa520",
-                    ...buttonStyle
+                      backgroundColor: "#daa520",
+                      ...buttonStyle
                     }} 
                     onPress={() => {
                       this.setModalVisible(false);
@@ -93,8 +93,8 @@ export class TaskItem extends React.Component {
 
                 <Button style={styles.buttons}
                   large
-                  icon={{name: 'check', type:'feather'}}
-                  title='MARK AS COMPLETE'
+                  icon={this.props.completed ? {name: "cancel"} : {name: 'check', type:'feather'}}
+                  title={this.props.completed ? 'MARK AS UNCOMPLETED' : 'MARK AS COMPLETED'}
                   buttonStyle={{
                     backgroundColor: "#20b2aa",
                     ...buttonStyle

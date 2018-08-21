@@ -80,6 +80,7 @@ export class TaskListScreen extends React.Component {
                 {this.renderTask(unpinnedTask)}
               </View>}
             </View>}
+          <Text>{"\n\n"}</Text>
           {!this.state.showCompletedTasks ? null :
             <View>
               {completedTask.length > 0 ? null :
@@ -106,6 +107,7 @@ export class TaskListScreen extends React.Component {
         title={x.title}
         pinned={x.pinned}
         reminder={x.reminder}
+        completed={x.completed}
         handleEdit={() => this.handleEdit(x)}
         handleDelete={() => this.handleDelete(x)}
         handleTogglePin={() => this.handleTogglePin(x)}
