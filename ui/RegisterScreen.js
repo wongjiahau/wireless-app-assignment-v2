@@ -1,43 +1,51 @@
 //http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, KeyboardAvoidingView,Image, TextInput, TouchableOpacity, StyleSheet, } from 'react-native';
 import { Logo } from './Logo';
 
-export class LoginScreen extends Component {
+export class RegisterScreen extends Component {
+  static navigationOptions = {
+    header: null
+  }
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Logo/>
         <View style={styles.formContainer}>
           <TextInput style={styles.input}
-            autoCapitalize="none"
+            autoCapitalize="none" 
             autoCorrect={false}
             keyboardType='email-address'
             returnKeyType="next"
             onSubmitEditing={() => this.passwordInput.focus()}
-            placeholder
-            ='Email'
+            placeholder='Email'
             placeholderTextColor='grey' />
-
           <TextInput style={styles.input}
-            returnKeyType="go"
+            returnKeyType="next"
+            onSubmitEditing={() => this.confirmPasswordInput.focus()}
             ref={(input) => this.passwordInput = input}
             placeholder='Password'
             placeholderTextColor='grey'
-            secureTextEntry={true} />
+            secureTextEntry={true}/>
+          <TextInput style={styles.input}
+            returnKeyType="go"
+            ref={(input) => this.confirmPasswordInput = input}
+            placeholder='Confirm password'
+            placeholderTextColor='grey'
+            secureTextEntry={true}/>
           <TouchableOpacity style={styles.buttonContainer}
-            onPress={() => {}}>
-            <Text style={styles.buttonText}>LOGIN</Text>
+            onPress={this.props.onPressonButtonPress}>
+            <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     backgroundColor: 'black',
     padding: 20
   },
@@ -51,7 +59,7 @@ const styles = StyleSheet.create({
     height: 100
   },
   formContainer: {
-     
+
   },
   input: {
     height: 40,
