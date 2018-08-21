@@ -21,6 +21,9 @@ export class TaskListScreen extends React.Component {
     this.state = {
       tasks: []
     };
+    this.subs = [
+      this.props.navigation.addListener('didFocus', () => this.refresh()),
+    ];
   }
 
   render() {
@@ -132,6 +135,10 @@ export class TaskListScreen extends React.Component {
     Controller.getOnGoingTask((tasks) => {
       this.setState({tasks: tasks});
     });
+  }
+
+  componentWillUnmount() {
+    this.subs.forEach(sub => sub.remove());
   }
 }
 

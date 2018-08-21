@@ -77,34 +77,33 @@ export class OpenModal extends Component {
 
         {!this.state.visibleModal ? null :
         <Modal
-        isVisible={this.state.visibleModal === 1}
-        onBackdropPress={() => this.setState({ visibleModal: null })}
-        animationIn={'zoomInDown'}
-        animationOut={'zoomOutUp'}
-        animationInTiming={1000}
-        animationOutTiming={1000}
-        backdropTransitionInTiming={1000}
-        backdropTransitionOutTiming={1000}
-      >
-        <View style={styles.modalContent}>
-          <RadioForm
-          style={{ alignItems: 'flex-start' }}
-            radio_props={radio_props}
-            initial={0}
-            formHorizontal={false}
-            labelHorizontal={true}
-            buttonColor={'#2196f3'}
-            animation={true}
-            onPress={(value) => { this.setState({ value: value }) }}
-          />
-          <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText} >Close</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-        }
+          isVisible={this.state.visibleModal === 1}
+          onBackdropPress={() => this.setState({ visibleModal: null })}
+          animationIn={'zoomInDown'}
+          animationOut={'zoomOutUp'}
+          animationInTiming={1000}
+          animationOutTiming={1000}
+          backdropTransitionInTiming={1000}
+          backdropTransitionOutTiming={1000}
+          >
+          <View style={styles.modalContent}>
+            <RadioForm
+            style={{ alignItems: 'flex-start' }}
+              radio_props={radio_props}
+              initial={0}
+              formHorizontal={false}
+              labelHorizontal={true}
+              buttonColor={'#2196f3'}
+              animation={true}
+              onPress={(value) => { this.setState({ value: value }) }}
+            />
+            <TouchableOpacity onPress={() => this.setState({ visibleModal: null })}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText} >Close</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>}
       </View>
     ); 
   }
