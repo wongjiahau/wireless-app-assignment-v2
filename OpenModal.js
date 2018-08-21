@@ -7,8 +7,8 @@ import {
   View
 } from 'react-native';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
-import { FloatingAction } from 'react-native-floating-action';
 import Modal from "react-native-modal";
+import FloatingAction from './react-native-floating-action/component/FloatingAction';
 
 const actions = [{
   text: 'Add new task',
@@ -59,6 +59,7 @@ export class OpenModal extends Component {
               }
             />
           )}
+          onBackdropPress={this.closeFab}
           onPressMain={() => this.setState({fabPressed: !this.state.fabPressed})}
           onPressItem={(name) => {
             switch (name) {
@@ -78,7 +79,10 @@ export class OpenModal extends Component {
         {!this.state.visibleModal ? null :
         <Modal
           isVisible={this.state.visibleModal === 1}
-          onBackdropPress={() => this.setState({ visibleModal: null })}
+          onBackdropPress={() => {
+            this.setState({ visibleModal: null });
+            this.closeFab();
+          }}
           animationIn={'zoomInDown'}
           animationOut={'zoomOutUp'}
           animationInTiming={1000}
