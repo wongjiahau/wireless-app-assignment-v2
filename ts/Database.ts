@@ -42,7 +42,7 @@ function retrieveTask(callback: QueryCallback) {
         result = result.map((x: any) => (
             {
                 ...x,
-                reminder: x.reminder !== NULL_DATE ? new Date(x.reminder) : null,
+                reminder: x.reminder !== NULL_DATE ? new Date(x.reminder) : NULL_DATE,
             }),
         );
         callback(result);

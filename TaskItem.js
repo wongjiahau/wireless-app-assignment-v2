@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Icon,Button } from 'react-native-elements'
 import { formatDate } from './util';
+import { NULL_DATE } from './js/Database';
 
 const buttonStyle = {
   height : 100,
@@ -39,7 +40,7 @@ export class TaskItem extends React.Component {
             }}>
             <View>
               <Text style={styles.heading1}>{this.props.title}</Text>
-              {!this.props.reminder ? null :
+              {this.props.reminder === NULL_DATE ? null :
               <Text style={styles.subtitle}>{"Reminder: " + formatDate(this.props.reminder)}</Text>
               }
             </View>

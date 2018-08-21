@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Controller } from './js/Controller';
 import { TaskForm } from './TaskForm';
+import { NULL_DATE } from './js/Database';
 
 export class AddTaskScreen extends Component {
   static navigationOptions = {
@@ -11,7 +12,7 @@ export class AddTaskScreen extends Component {
     const emptyTask = {
       title: "",
       content: "",
-      reminder: null
+      reminder: NULL_DATE
     };
 
     return (

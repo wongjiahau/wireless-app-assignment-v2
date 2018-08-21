@@ -50,6 +50,7 @@ export class TaskListScreen extends React.Component {
               {this.renderTask(unpinnedTask)}
             </View>
           }
+          <Text>{"\n\n"}</Text>
         </ScrollView>
       </OpenModal>
     )
@@ -146,7 +147,7 @@ TaskListScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15
+    padding: 15,
   },
   header: {
     marginLeft: 1

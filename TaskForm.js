@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { formatDate } from './util';
 import { CustomButton } from './HomeScreen';
+import { NULL_DATE } from './js/Database';
 
 export class TaskForm extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export class TaskForm extends Component {
           <View>
             <Text style={styles.textField}>
               {
-                this.state.task.reminder ?
+                this.state.task.reminder !== NULL_DATE ?
                 formatDate(new Date(this.state.task.reminder)) :
                 "Click to add reminder"
               }
