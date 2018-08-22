@@ -2,7 +2,14 @@ import { Task } from "./Task";
 
 export const API = (operation: ApiOption) => `http://192.168.0.9:5000/api/${operation}`;
 
-export type ApiOption = "signup" | "login" | "get_session_id" | "task" | "logout";
+export type ApiOption
+  = "signup"
+  | "login"
+  | "get_session_id"
+  | "task"
+  | "logout"
+  | "download"
+  ;
 
 export interface UserDetail {
   email: string;
@@ -33,7 +40,9 @@ async function upload(sessionId: string, tasks: Task[]) {
   await postData("task", {session_id: sessionId, tasks: tasks});
 }
 
-// async function download(sessionId: string)
+async function download(sessionId: string) {
+  return (await postData("download", {session_id: sessionId})).json();
+}
 
 async function postData<T>(api: ApiOption, body: T): Promise<any> {
   return await fetch(API(api), {
@@ -51,5 +60,5 @@ export const WebServer = {
   login: login,
   logout: logout,
   upload: upload,
-  // download: download,
+  download: download,
 };

@@ -114,6 +114,16 @@ def upload_task():
 
     return jsonify("OK"), 200    
 
+@app.route('/api/download', methods=['POST'])
+def download_task():
+    if not request.json:
+        abort(404)
+      
+    user_id = fetch_user_id_using_session(request.json["session_id"])
+    task = fetch_task(user_id)
+    print(task)
+    return jsonify(task), 200
+
 def fetch_task(user_id):
     return fetchData(parseTask, 
     """

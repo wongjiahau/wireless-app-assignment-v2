@@ -9,7 +9,7 @@ export const Controller = {
     register: register,
     login: login,
     logout: logout,
-    // downloadTask
+    downloadTask: downloadTask,
     uploadTask: uploadTask,
     createTask: createTask,
     updateTask: updateTask,
@@ -43,13 +43,22 @@ async function uploadTask(successCallback: () => void) {
     }
 }
 
+async function downloadTask(): Promise<Task[]> {
+    try {
+        const sessionId = await getSessionId();
+        return await WebServer.download(sessionId);
+    } catch (error) {
+        alert(error);
+    }
+}
+
 async function register(userDetail: UserDetail) {
     await WebServer.register(userDetail);
 }
 
 async function login(userDetail: UserDetail) {
-    const sessionId = await WebServer.login(userDetail);
     try {
+        const sessionId = await WebServer.login(userDetail);
         storeSessionId(sessionId);
     } catch (error) {
         alert(error);
