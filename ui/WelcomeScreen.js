@@ -28,12 +28,6 @@ export class WelcomeScreen extends Component {
           }}>
             <Text style={styles.text}> SIGN UP </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.button} onPress={()=>{
-            this.props.navigation.navigate("TaskListScreen");
-          }}>
-            <Text style={styles.text}> SKIP </Text>
-          </TouchableOpacity>
         </View>
       </View>
     );

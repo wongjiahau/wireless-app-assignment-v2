@@ -39,7 +39,7 @@ export class TaskItem extends React.Component {
               this.setModalVisible(true);
             }}>
             <View>
-              <Text style={styles.heading1}>{this.props.title + (this.props.pinned ? "📌": "")}</Text>
+              <Text style={styles.heading1}>{this.props.title + (this.props.pinned ? " 📌": "")}</Text>
               <Text style={styles.subtitle}>{this.props.content}</Text>
               {this.props.reminder === NULL_DATE ? null :
               <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>

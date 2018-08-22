@@ -27,12 +27,6 @@ export class LoginScreen extends Component {
     };
   }
 
-  async componentWillMount() {
-    if(await sessionIdIsPresent()) {
-      this.props.navigation.navigate("TaskListScreen");
-    }
-  }
-
   render() {
     return (
       <View style={styles.container}>

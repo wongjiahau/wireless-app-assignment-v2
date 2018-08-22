@@ -12,6 +12,7 @@ import { TaskItem } from './TaskItem';
 import { Controller } from '../js/Controller';
 import { OpenModal } from './OpenModal';
 import { Database } from '../js/Database';
+import { NavigationActions } from 'react-navigation';
 
 const DEBUG = false;
 if(DEBUG) {
@@ -19,12 +20,33 @@ if(DEBUG) {
 }
 
 export class TaskListScreen extends React.Component {
-  static navigationOptions = {
-    title: "Task Reminder App",
-    headerLeft: null,
-    headerRight: (<Button title="logout" onPress={Controller.logout}/>)
-  } 
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: "Task Reminder App",
+      headerLeft: null,
+      headerRight: (
+        <View style={{marginRight: 10}}>
+          <Button title="logout" onPress={async () => {
+            await Controller.logout();
 
+            // Refer: https://github.com/react-navigation/react-navigation/issues/1815
+            // This is to prevent user from pressing back to get back to this page 
+            navigation.navigate("WelcomeScreen");
+            return;
+            const resetAction = NavigationActions.reset({
+              index: 0,
+              actions: [
+                NavigationActions.navigate({
+                  routeName: "WelcomeScreen",
+                })
+              ]
+            });
+            navigation.dispatch(resetAction);
+          }}/>
+        </View>
+    )
+    }
+  } 
 
   constructor(props) {
     super(props);
