@@ -34,14 +34,15 @@ export class TaskItem extends React.Component {
       <View style={styles.container}>
         <View>
           <TouchableHighlight
-            style={{height: 80}}
+            style={{minHeight: 80}}
             onPress={() => {
               this.setModalVisible(true);
             }}>
             <View>
-              <Text style={styles.heading1}>{this.props.title}</Text>
+              <Text style={styles.heading1}>{this.props.title + (this.props.pinned ? "📌": "")}</Text>
+              <Text style={styles.subtitle}>{this.props.content}</Text>
               {this.props.reminder === NULL_DATE ? null :
-              <Text style={styles.subtitle}>{"Reminder: " + formatDate(this.props.reminder)}</Text>
+              <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>
               }
             </View>
           </TouchableHighlight>
@@ -55,6 +56,7 @@ export class TaskItem extends React.Component {
             <View style={{ marginTop: -10 }}>
               <View style={styles.buttonView}>
                 <Text style={styles.heading1}>{this.props.title}</Text>
+                <Text style={styles.subtitle}>{this.props.content}</Text>
                 <Button style={styles.buttons}
                     large
                     icon={{name: 'edit', type:'font-awesome'}}

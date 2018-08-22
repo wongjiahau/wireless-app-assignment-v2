@@ -81,6 +81,7 @@ export class RegisterScreen extends Component {
           email: this.state.email,
           password: this.state.password
         });
+        this.props.navigation.navigate("LoginScreen");
       } catch (error) {
         Alert.alert("Error", error.message);
       }

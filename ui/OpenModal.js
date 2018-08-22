@@ -26,11 +26,11 @@ const actions = [{
   name: 'filter',
   position: 1
 },{
-  text: 'Upload',
+  text: 'Backup',
   color: '#c80000',
   // @ts-ignore
   icon: require('../images/upload.png'),
-  name: 'upload',
+  name: 'backup',
   position: 0
 }];
 
@@ -78,9 +78,9 @@ export class OpenModal extends Component {
                 this.closeFab();
                 this.setState({ modalVisible: 1 });
                 break;
-              case 'upload':
+              case 'backup':
                 this.closeFab();
-                Controller.uploadTask(() => ToastAndroid.show("Successfully uploaded to server!", ToastAndroid.SHORT));
+                Controller.uploadTask(() => ToastAndroid.show("Successfully save your data to server!", ToastAndroid.SHORT));
                 break;
             }
           }

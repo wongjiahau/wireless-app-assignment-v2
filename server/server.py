@@ -97,22 +97,25 @@ def upload_task():
         DELETE FROM task WHERE user_id = ?
     """, (user_id,))
 
-    for task in request.json["tasks"]:
-        new_task = (
-            user_id,
-            task['title'],
-            task['content'],
-            task['pinned'],
-            task['completed'],
-            task['reminder']
-        )
-    
-        changeData("""
-            INSERT INTO task (user_id,title,content,pinned,completed,reminder)
-            VALUES(?,?,?,?,?,?)
-        """, new_task)
-
-    return jsonify("OK"), 200    
+    try:
+        for task in request.json["tasks"]:
+            new_task = (
+                user_id,
+                task['title'],
+                task['content'],
+                task['pinned'],
+                task['completed'],
+                task['reminder']
+            )
+        
+            changeData("""
+                INSERT INTO task (user_id,title,content,pinned,completed,reminder)
+                VALUES(?,?,?,?,?,?)
+            """, new_task)
+        return jsonify("OK"), 200    
+    except:
+        print("Backup failed")
+        return jsonify({"error": "Backup failed, make sure you login already."}), 200
 
 @app.route('/api/download', methods=['POST'])
 def download_task():

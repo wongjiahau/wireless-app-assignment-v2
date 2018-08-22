@@ -37,7 +37,10 @@ async function logout(sessionId: string) {
 }
 
 async function upload(sessionId: string, tasks: Task[]) {
-  await postData("task", {session_id: sessionId, tasks: tasks});
+   const result = await (await postData("task", {session_id: sessionId, tasks: tasks})).json();
+   if (result.error) {
+     throw new Error(result.error);
+   }
 }
 
 async function download(sessionId: string) {

@@ -113,6 +113,7 @@ export class TaskListScreen extends React.Component {
       <TaskItem 
         key={x.id}
         title={x.title}
+        content={x.content}
         pinned={x.pinned}
         reminder={x.reminder}
         completed={x.completed}
