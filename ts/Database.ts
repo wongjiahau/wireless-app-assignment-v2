@@ -86,7 +86,7 @@ function deleteTask(taskId: number, callback: QueryCallback) {
     `, [taskId], callback);
 }
 
-function reinitializeDatabase() {
+function reinitializeDatabaseWithDummyData() {
     query(`
     DELETE FROM task WHERE 1=1;
     `, [], () => {});
@@ -105,10 +105,17 @@ function reinitializeDatabase() {
     });
 }
 
+function clearAllData(callback: QueryCallback) {
+    query(`
+    DELETE FROM task WHERE 1=1;
+    `, [], callback);
+}
+
 export const Database = {
+    clearAllData: clearAllData,
     createTask: createTask,
     retrieveTask: retrieveTask,
     updateTask: updateTask,
     deleteTask: deleteTask,
-    reinitializeDatabase: reinitializeDatabase,
+    reinitializeDatabase: reinitializeDatabaseWithDummyData,
 };

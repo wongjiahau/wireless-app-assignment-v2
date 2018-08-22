@@ -28,20 +28,7 @@ export class TaskListScreen extends React.Component {
         <View style={{marginRight: 10}}>
           <Button title="logout" onPress={async () => {
             await Controller.logout();
-
-            // Refer: https://github.com/react-navigation/react-navigation/issues/1815
-            // This is to prevent user from pressing back to get back to this page 
             navigation.navigate("WelcomeScreen");
-            return;
-            const resetAction = NavigationActions.reset({
-              index: 0,
-              actions: [
-                NavigationActions.navigate({
-                  routeName: "WelcomeScreen",
-                })
-              ]
-            });
-            navigation.dispatch(resetAction);
           }}/>
         </View>
     )

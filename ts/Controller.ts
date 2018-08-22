@@ -43,10 +43,15 @@ async function uploadTask(successCallback: () => void) {
     }
 }
 
-async function downloadTask(): Promise<Task[]> {
+async function downloadTask() {
     try {
         const sessionId = await getSessionId();
-        return await WebServer.download(sessionId);
+        const tasks: Task[] =  await WebServer.download(sessionId);
+        Database.clearAllData(() => {
+            tasks.forEach((x) => {
+                Database.createTask(x, () => {});
+            });
+        });
     } catch (error) {
         alert(error);
     }

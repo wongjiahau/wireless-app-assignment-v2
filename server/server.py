@@ -36,7 +36,9 @@ def signup():
 
 @app.route('/api/get_session_id', methods=['GET'])
 def get_session_id():
-    return jsonify(str(int(round(time.time())))), 200
+    # Session id is current epoch time in milliseconds
+    # Refer: https://stackoverflow.com/questions/5998245/get-current-time-in-milliseconds-in-python
+    return jsonify(str(int(round(time.time() * 1000)))), 200
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -124,7 +126,6 @@ def download_task():
       
     user_id = fetch_user_id_using_session(request.json["session_id"])
     task = fetch_task(user_id)
-    print(task)
     return jsonify(task), 200
 
 def fetch_task(user_id):
