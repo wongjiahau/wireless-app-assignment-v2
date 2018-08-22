@@ -27,12 +27,16 @@ async function uploadTask(successCallback: () => void) {
     try {
         const sessionId = await getSessionId();
         getAllTask(async (tasks) => {
-            const t: Task[] = tasks.map((x) => ({
+            const t = (tasks.map((x) => ({
                 ...x,
                 reminder: x.reminder === NULL_DATE ? NULL_DATE : x.reminder.getTime(),
-            }));
-            await WebServer.upload(sessionId, t);
-            successCallback();
+            })));
+            try {
+                await WebServer.upload(sessionId, t);
+                successCallback();
+            } catch (error) {
+                alert(error);
+            }
         });
     } catch (error) {
         alert(error);

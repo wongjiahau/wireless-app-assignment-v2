@@ -29,7 +29,7 @@ const actions = [{
   text: 'Upload',
   color: '#c80000',
   // @ts-ignore
-  icon: require('../images/upload.jpeg'),
+  icon: require('../images/upload.png'),
   name: 'upload',
   position: 0
 }];
@@ -79,7 +79,7 @@ export class OpenModal extends Component {
                 this.setState({ modalVisible: 1 });
               case 'upload':
                 this.closeFab();
-                Controller.uploadTask(ToastAndroid.show("Successfully uploaded to server!", ToastAndroid.SHORT));
+                Controller.uploadTask(() => ToastAndroid.show("Successfully uploaded to server!", ToastAndroid.SHORT));
                 break;
             }
           }
