@@ -77,6 +77,7 @@ export class OpenModal extends Component {
               case 'filter':
                 this.closeFab();
                 this.setState({ modalVisible: 1 });
+                break;
               case 'upload':
                 this.closeFab();
                 Controller.uploadTask(() => ToastAndroid.show("Successfully uploaded to server!", ToastAndroid.SHORT));
