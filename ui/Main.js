@@ -6,8 +6,12 @@ import { TaskListScreen } from "./TaskListScreen";
 import { EditTaskScreen } from "./EditTaskScreen";
 import { LoginScreen } from "./LoginScreen";
 import { RegisterScreen } from "./RegisterScreen";
+import { WelcomeScreen } from "./WelcomeScreen";
 
 export const Main = createStackNavigator({
+  'WelcomeScreen': {
+    screen: WelcomeScreen
+  },
   'LoginScreen': {
     screen: LoginScreen,
   },
@@ -24,7 +28,7 @@ export const Main = createStackNavigator({
     screen: EditTaskScreen
   }
 }, {
-  initialRouteName: 'LoginScreen',
+  initialRouteName: 'WelcomeScreen',
   navigationOptions: {
     headerStyle: {
       backgroundColor: 'lightblue',
