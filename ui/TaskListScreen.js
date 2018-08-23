@@ -28,10 +28,22 @@ export class TaskListScreen extends React.Component {
         <View style={{marginRight: 10}}>
           <Button title="logout" onPress={async () => {
             try {
-              await Controller.uploadTask(async() => {
-                await Controller.logout();
-                navigation.navigate("WelcomeScreen");
-              })
+              Alert.alert("Warning", "Do you really want to logout?", [
+                {
+                  text: "Cancel",
+                  style: "cancel"
+                },
+                {
+                  text: "Logout",
+                  style: "destructive",
+                  onPress: async () => {
+                    await Controller.uploadTask(async() => {
+                      await Controller.logout();
+                      navigation.navigate("WelcomeScreen");
+                    })
+                  }
+                }
+              ])
             } catch(error) {
               Alert.alert("Unable to backup your data.");
             }
