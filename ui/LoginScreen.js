@@ -1,7 +1,4 @@
-//http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
-import {
-  NavigationActions,
-} from "react-navigation";
+//Modified from http://stacktips.com/tutorials/react-native/creating-login-screen-in-react-native
 import React, { Component } from 'react';
 import { 
   View, 
@@ -13,7 +10,7 @@ import {
 } from 'react-native';
 import { Logo } from './Logo';
 import { Controller } from '../js/Controller';
-import { sessionIdIsPresent } from '../js/SimpleStorage';
+import { isValidEmail, validateEmailAndPassword } from '../util';
 
 export class LoginScreen extends Component {
   static navigationOptions = {
@@ -61,11 +58,7 @@ export class LoginScreen extends Component {
   }
 
   handleLogin = async () => {
-    if(this.state.email.length === 0) {
-      Alert.alert("Error", "Please fill in your email.");
-    } else if(this.state.password.length === 0) {
-      Alert.alert("Error", "Please fill in your password.");
-    } else {
+    if(validateEmailAndPassword(this.state.email, this.state.password)) {
       try {
         await Controller.login({
           email: this.state.email,

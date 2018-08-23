@@ -7,10 +7,12 @@ import {
   TextInput, 
   TouchableOpacity, 
   StyleSheet, 
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native';
 import { Logo } from './Logo';
 import { Controller } from '../js/Controller';
+import { validateEmailAndPassword } from '../util';
 
 export class RegisterScreen extends Component {
   static navigationOptions = {
@@ -69,18 +71,13 @@ export class RegisterScreen extends Component {
   }
 
   handleRegister = async () => {
-    if(this.state.email.length === 0) {
-      Alert.alert("Error", "Please fill in your Email.");
-    } else if(this.state.password.length === 0) {
-      Alert.alert("Error", "Please fill in password");
-    } else if(this.state.password !== this.state.password2) {
-      Alert.alert("Error", "Passwords are not matching");
-    } else {
+    if(validateEmailAndPassword(this.state.email, this.state.password)) {
       try {
         await Controller.register({
           email: this.state.email,
           password: this.state.password
         });
+        ToastAndroid.show("Register successful!", ToastAndroid.SHORT);
         this.props.navigation.navigate("LoginScreen");
       } catch (error) {
         Alert.alert("Error", error.message);
