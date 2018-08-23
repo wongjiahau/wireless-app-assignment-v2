@@ -1,4 +1,4 @@
-const IP_ADDRESS = "192.168.1.103";
+const IP_ADDRESS = "10.0.2.2";
 
 import { Task } from "./Task";
 
