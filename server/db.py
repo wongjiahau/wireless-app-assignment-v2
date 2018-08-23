@@ -39,5 +39,26 @@ cursor.execute('''
     VALUES('john@gmail.com', '12345678')
 ''')
 
+# Insert dummy tasks
+cursor.execute('''
+	INSERT INTO task(user_id, title, content, pinned, completed, reminder)
+	VALUES(1, 'Go shopping', 'Buy bananas, apple', 1, 0, -1)
+''')
+
+cursor.execute('''
+	INSERT INTO task(user_id, title, content, pinned, completed, reminder)
+	VALUES(1, 'Go makan', 'Roti canai', 1, 0, 1634993608087)
+''')
+
+cursor.execute('''
+	INSERT INTO task(user_id, title, content, pinned, completed, reminder)
+	VALUES(1, 'Do homework', '', 0, 0, 1534993608087)
+''')
+
+cursor.execute('''
+	INSERT INTO task(user_id, title, content, pinned, completed, reminder)
+	VALUES(1, 'Train Dota', '-Huskar\n-Phoenix\n-Io', 0, 0, 1434993608087)
+''')
+
 db.commit()
 db.close()
