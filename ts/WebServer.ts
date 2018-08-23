@@ -1,6 +1,6 @@
 import { Task } from "./Task";
 
-export const API = (operation: ApiOption) => `http://192.168.0.9:5000/api/${operation}`;
+export const API = (operation: ApiOption) => `http://192.168.1.103:5000/api/${operation}`;
 
 export type ApiOption
   = "signup"

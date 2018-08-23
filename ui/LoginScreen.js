@@ -66,12 +66,16 @@ export class LoginScreen extends Component {
     } else if(this.state.password.length === 0) {
       Alert.alert("Error", "Please fill in your password.");
     } else {
-      await Controller.login({
-        email: this.state.email,
-        password: this.state.password
-      });
-      await Controller.downloadTask();
-      this.props.navigation.navigate("TaskListScreen");
+      try {
+        await Controller.login({
+          email: this.state.email,
+          password: this.state.password
+        });
+        await Controller.downloadTask();
+        this.props.navigation.navigate("TaskListScreen");
+      } catch (error) {
+        Alert.alert("Error", error.message)
+      }
     }
   }
 }

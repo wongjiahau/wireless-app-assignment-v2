@@ -62,22 +62,14 @@ async function register(userDetail: UserDetail) {
 }
 
 async function login(userDetail: UserDetail) {
-    try {
-        const sessionId = await WebServer.login(userDetail);
-        storeSessionId(sessionId);
-    } catch (error) {
-        alert(error);
-    }
+    const sessionId = await WebServer.login(userDetail);
+    storeSessionId(sessionId);
 }
 
 async function logout() {
     const sessionId = await getSessionId();
-    try {
-        await WebServer.logout(sessionId);
-        await deleteSessionId();
-    } catch (error) {
-        alert(error);
-    }
+    await WebServer.logout(sessionId);
+    await deleteSessionId();
 }
 
 function createTask(
