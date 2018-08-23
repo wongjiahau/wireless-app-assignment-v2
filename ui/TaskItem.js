@@ -5,10 +5,11 @@ import {
   Text,
   View,
   TouchableHighlight,
-  Modal
+  Modal,
+  TabBarIOSItem
 } from 'react-native';
 import { Icon,Button } from 'react-native-elements'
-import { formatDate } from '../util';
+import { formatDate, trim } from '../util';
 import { NULL_DATE } from '../js/Database';
 
 const buttonStyle = {
@@ -59,8 +60,8 @@ export class TaskItem extends React.Component {
             }}>
             <View style={{ marginTop: -35 }}>
               <View style={styles.buttonView}>
-                <Text style={styles.heading1}>{this.props.title}</Text>
-                <Text style={styles.subtitle}>{this.props.content}</Text>
+                <Text style={styles.heading1}>{trim(this.props.title)}</Text>
+                <Text style={styles.subtitle}>{trim(this.props.content)}</Text>
                 <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>
                 <Button style={styles.buttons}
                     large
@@ -149,4 +150,3 @@ const styles = StyleSheet.create({
 
   }
 });
-

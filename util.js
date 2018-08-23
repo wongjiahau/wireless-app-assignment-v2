@@ -1,8 +1,23 @@
-/**
- * Name: Wong Jia Hau
- * Reg. No.: 1500181
- */
+export function trim(text) {
+  let result = text;
+  let showTripleDot = false;
+  if(text.indexOf("\n") > -1) {
+    result = text.split("\n")[0]
+    showTripleDot = true;
+  }
+  if(result.length > 50) {
+    result = result.slice(0, 50);
+    showTripleDot = true;
+  }
+  if(showTripleDot) {
+    result += "...";
+  }
+  return result;
+}
 export function formatDate(dateObj) {
+  if(!dateObj.getDay) {
+    return "Invalid date";
+  }
   let day = dateObj.getDay();
   let date = dateObj.getDate();
   let month = dateObj.getMonth();
