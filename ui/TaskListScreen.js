@@ -61,6 +61,8 @@ export class TaskListScreen extends React.Component {
     const completedTask = this.state.tasks.filter((x) => x.completed === 1);
     return (
       <OpenModal 
+        showOnGoingTasks={this.state.showOnGoingTasks}
+        showCompletedTasks={this.state.showCompletedTasks}
         navigation={this.props.navigation}
         handleShowOnGoingTasks={()=>{
           this.setState({

@@ -57,10 +57,11 @@ export class TaskItem extends React.Component {
             onRequestClose={() => {
               this.setModalVisible(!this.state.modalVisible);
             }}>
-            <View style={{ marginTop: -10 }}>
+            <View style={{ marginTop: -35 }}>
               <View style={styles.buttonView}>
                 <Text style={styles.heading1}>{this.props.title}</Text>
                 <Text style={styles.subtitle}>{this.props.content}</Text>
+                <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>
                 <Button style={styles.buttons}
                     large
                     icon={{name: 'edit', type:'font-awesome'}}

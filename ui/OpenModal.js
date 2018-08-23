@@ -101,24 +101,29 @@ export class OpenModal extends Component {
           >
           <View style={styles.modalContent}>
             <View style={styles.buttonRow}>
+              {this.props.showOnGoingTasks && !this.props.showCompletedTasks ? null :
               <TouchableOpacity style={styles.button} onPress={()=>{
                 this.closeFab();
                 this.props.handleShowOnGoingTasks();
                 }}>
-                  <Text style={styles.text}> Show On-Going Task</Text>
-              </TouchableOpacity>
+                  <Text style={styles.text}> Show on-going tasks only</Text>
+              </TouchableOpacity>}
+
+              {this.props.showCompletedTasks && !this.props.showOnGoingTasks ? null :
               <TouchableOpacity style={styles.button} onPress={()=>{
                 this.closeFab();
                 this.props.handleShowCompletedTasks();
                 }}>
-                  <Text style={styles.text}> Show Completed Task </Text>
-              </TouchableOpacity>
+                  <Text style={styles.text}> Show completed tasks only </Text>
+              </TouchableOpacity>}
+
+              {this.props.showCompletedTasks && this.props.showOnGoingTasks ? null :
               <TouchableOpacity style={styles.button} onPress={()=>{
                 this.closeFab();
                 this.props.handleAllTasks();
                 }}>
-                  <Text style={styles.text}> Show All Task</Text>
-              </TouchableOpacity>
+                  <Text style={styles.text}> Show all tasks</Text>
+              </TouchableOpacity>}
             </View>
           </View>
         </Modal>}
