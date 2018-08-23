@@ -29,7 +29,7 @@ export class RegisterScreen extends Component {
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Logo/>
         <View style={styles.formContainer}>
-          <TextInput style={styles.input}
+          <TextInput style={styles.emailInput}
             value={this.state.email}
             autoCapitalize="none" 
             autoCorrect={false}
@@ -92,7 +92,7 @@ export class RegisterScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 20
   },
   loginContainer: {
@@ -102,17 +102,23 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 300,
-    height: 100
+    height: 80
   },
   formContainer: {
-
+    flex:1
+  },
+  emailInput:{
+    height:40,
+    marginBottom: 5,
+    marginTop:50,
+    padding: 10,
+    color: 'black'
   },
   input: {
     height: 40,
-    backgroundColor: 'rgba(225,225,225,0.2)',
-    marginBottom: 10,
+    marginBottom: 5,
     padding: 10,
-    color: '#fff'
+    color: 'black'
   },
   buttonContainer: {
     backgroundColor: '#2980b6',

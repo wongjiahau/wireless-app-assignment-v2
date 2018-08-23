@@ -79,7 +79,7 @@ export class LoginScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 20
   },
   loginContainer: {
@@ -96,10 +96,9 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    backgroundColor: 'rgba(225,225,225,0.2)',
     marginBottom: 10,
     padding: 10,
-    color: '#fff'
+    color: 'black'
   },
   buttonContainer: {
     backgroundColor: '#2980b6',
