@@ -1,6 +1,8 @@
+const IP_ADDRESS = "192.168.1.103";
+
 import { Task } from "./Task";
 
-export const API = (operation: ApiOption) => `http://192.168.1.103:5000/api/${operation}`;
+export const API = (operation: ApiOption) => `http://${IP_ADDRESS}:5000/api/${operation}`;
 
 export type ApiOption
   = "signup"

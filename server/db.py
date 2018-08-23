@@ -36,13 +36,7 @@ cursor = db.cursor()
 # Insert one dummy user
 cursor.execute('''
     INSERT INTO user(email,password)
-    VALUES('qq', 'qq')
-''')
-
-# Insert one dummy session
-cursor.execute('''
-    INSERT INTO session(id, user_id)
-    VALUES(1532420297001, 1)
+    VALUES('john@gmail.com', '12345678')
 ''')
 
 db.commit()
