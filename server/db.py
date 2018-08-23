@@ -3,6 +3,18 @@ import sqlite3
 db = sqlite3.connect('db.sqlite')
 
 db.execute('''
+	DROP TABLE IF EXISTS user
+''')
+
+db.execute('''
+	DROP TABLE IF EXISTS session
+''')
+
+db.execute('''
+	DROP TABLE IF EXISTS task
+''')
+
+db.execute('''
 	CREATE TABLE user(
 		id 			integer PRIMARY KEY AUTOINCREMENT,
 		email 		text 	UNIQUE NOT NULL,
