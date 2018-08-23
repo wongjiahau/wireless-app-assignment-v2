@@ -84,6 +84,7 @@ export class TaskListScreen extends React.Component {
         <ScrollView style={styles.container}>
           {!this.state.showOnGoingTasks ? null :
             <View>
+              <Text style={styles.title}>On-going tasks</Text>
               {onGoingTasks.length > 0 ? null :
               <View>
                 <Text>There is no on going task.</Text>
@@ -101,9 +102,9 @@ export class TaskListScreen extends React.Component {
               <View>
                 <Text style={styles.header}>Unpinned tasks</Text>
                 {this.renderTask(unpinnedTask)}
+                <Text>{"\n\n"}</Text>
               </View>}
             </View>}
-          <Text>{"\n\n"}</Text>
           {!this.state.showCompletedTasks ? null :
             <View>
               {completedTask.length > 0 ? null :
@@ -112,7 +113,7 @@ export class TaskListScreen extends React.Component {
               </View>}
               {completedTask.length === 0 ? null : 
               <View>
-                <Text style={styles.header}>Completed tasks</Text> 
+                <Text style={styles.title}>Completed tasks</Text> 
                 {this.renderTask(completedTask)}
               </View>}
             </View>
@@ -216,5 +217,9 @@ const styles = StyleSheet.create({
   },
   header: {
     marginLeft: 1
+  },
+  title: {
+    fontSize: 20, 
+    marginBottom: 5
   }
 })
