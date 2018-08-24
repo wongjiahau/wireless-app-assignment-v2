@@ -103,8 +103,8 @@ export class TaskForm extends Component {
       });
       if(action !== DatePickerAndroid.dismissedAction) {
         const {action, hour, minute} = await TimePickerAndroid.open({
-            hour: this.state.reminder ? this.state.reminder.getHours() : new Date().getHours(),
-            minute: this.state.reminder ? this.state.reminder.getMinutes() : new Date().getMinutes(),
+            hour: this.state.task.reminder ? this.state.task.reminder.getHours() : new Date().getHours(),
+            minute: this.state.task.reminder ? this.state.task.reminder.getMinutes() : new Date().getMinutes(),
             is24Hour: false, // Will display '2 PM'
         });
         if (action !== TimePickerAndroid.dismissedAction) {
