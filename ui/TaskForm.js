@@ -97,7 +97,7 @@ export class TaskForm extends Component {
   handlePickDate = async () => {
     try {
       const {action, year, month, day} = await DatePickerAndroid.open({
-        date: this.state.reminder || new Date(),
+        date: this.state.task.reminder || new Date(),
         minDate: new Date(1890, 0, 1),
         maxDate: new Date(3000, 0, 0) // Current date
       });
