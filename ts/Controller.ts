@@ -105,6 +105,7 @@ function createTask(
 
 function updateTask(newTask: Task, callback: QueryCallback) {
     Database.updateTask(newTask, callback);
+    setupNotification(newTask);
 }
 
 function deleteTask(taskId: number, callback: QueryCallback) {
