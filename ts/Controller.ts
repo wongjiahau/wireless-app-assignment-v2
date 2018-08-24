@@ -47,8 +47,12 @@ async function uploadTask(successCallback: () => void) {
 }
 
 function setupNotification(task: Task) {
+    if (task.completed === 1) {
+        Notification.delete(task.id);
+    }
     if (task.reminder !== NULL_DATE) {
         Notification.create({
+            id: task.id,
             subject: task.title,
             message: task.content,
             sendAt: new Date(task.reminder),
@@ -93,6 +97,9 @@ function createTask(
     callback: QueryCallback,
 ) {
     const newTask: Task = {
+        // NOTE: this id is temporary, it will be different once stored into the local database
+        // because the database have autoincrement primary key feature
+        id: new Date().getTime(),
         title: title,
         content: content,
         reminder: reminder !== NULL_DATE ? reminder.getTime() : NULL_DATE ,

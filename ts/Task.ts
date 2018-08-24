@@ -1,5 +1,5 @@
 export interface Task {
-    id?: number;
+    id: number;
     title: string;
     content: string;
     pinned: 0 | 1;
