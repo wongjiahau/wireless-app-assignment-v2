@@ -74,20 +74,22 @@ export class TaskForm extends Component {
               <Icon type='feather' name='x' />
           </TouchableOpacity>}
         </View>
-        <CustomButton onPress={() => {
-          if(!this.state.task.title) {
-            Alert.alert("Please fill in Title.")
-            return;
-          }
-          this.props.handleTask(this.state.task, (response) => {
-              ToastAndroid.show( 
-                this.props.renderMessage(this.state.task),
-                ToastAndroid.SHORT
-              );
-              this.props.navigation.goBack();
+        <CustomButton 
+          text={this.props.buttonText}
+          onPress={() => {
+            if(!this.state.task.title) {
+              Alert.alert("Please fill in Title.")
+              return;
             }
-          )
-        }} text={this.props.buttonText}/>
+            this.props.handleTask(this.state.task, (response) => {
+                ToastAndroid.show( 
+                  this.props.renderMessage(this.state.task),
+                  ToastAndroid.SHORT
+                );
+                this.props.navigation.goBack();
+              }
+            )
+          }}/>
       </View>
     );
   }
@@ -101,8 +103,8 @@ export class TaskForm extends Component {
       });
       if(action !== DatePickerAndroid.dismissedAction) {
         const {action, hour, minute} = await TimePickerAndroid.open({
-            hour: this.state.reminder ? this.state.reminder.getHours() : 12,
-            minute: this.state.reminder ? this.state.reminder.getMinutes() : 0,
+            hour: this.state.reminder ? this.state.reminder.getHours() : new Date().getHours(),
+            minute: this.state.reminder ? this.state.reminder.getMinutes() : new Date().getMinutes(),
             is24Hour: false, // Will display '2 PM'
         });
         if (action !== TimePickerAndroid.dismissedAction) {

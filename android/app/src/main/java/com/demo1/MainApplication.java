@@ -1,6 +1,7 @@
 package com.demo1;
 import org.pgsqlite.SQLitePluginPackage;    // import this package
 
+import io.neson.react.notification.NotificationPackage;    // import another package
 
 import android.app.Application;
 
@@ -27,7 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new SQLitePluginPackage(),   // register SQLite Plugin here
           new MainReactPackage(),
-            new VectorIconsPackage()
+          new VectorIconsPackage(),
+          new NotificationPackage()
       );
     }
 

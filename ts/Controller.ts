@@ -3,6 +3,9 @@ import { deleteSessionId, getSessionId, storeSessionId } from "./SimpleStorage";
 import { ConvertedTask, Task } from "./Task";
 import { UserDetail, WebServer } from "./WebServer";
 
+// @ts-ignore
+import Notification from "react-native-system-notification";
+
 export type NullDate = -1;
 
 export const Controller = {
@@ -43,6 +46,16 @@ async function uploadTask(successCallback: () => void) {
     }
 }
 
+function setupNotification(task: Task) {
+    if (task.reminder !== NULL_DATE) {
+        Notification.create({
+            subject: task.title,
+            message: task.content,
+            sendAt: new Date(task.reminder),
+        });
+    }
+}
+
 async function downloadTask() {
     try {
         const sessionId = await getSessionId();
@@ -50,6 +63,7 @@ async function downloadTask() {
         Database.clearAllData(() => {
             tasks.forEach((x) => {
                 Database.createTask(x, () => {});
+                setupNotification(x);
             });
         });
     } catch (error) {
@@ -86,6 +100,7 @@ function createTask(
         completed: 0,
     };
     Database.createTask(newTask, callback);
+    setupNotification(newTask);
 }
 
 function updateTask(newTask: Task, callback: QueryCallback) {
