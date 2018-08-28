@@ -62,7 +62,8 @@ export class TaskItem extends React.Component {
               <View style={styles.buttonView}>
                 <Text style={styles.heading1}>{trim(this.props.title)}</Text>
                 <Text style={styles.subtitle}>{trim(this.props.content)}</Text>
-                <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>
+                {this.props.reminder === NULL_DATE ? null :
+                <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>}
                 <Button style={styles.buttons}
                     large
                     icon={{name: 'edit', type:'font-awesome'}}
