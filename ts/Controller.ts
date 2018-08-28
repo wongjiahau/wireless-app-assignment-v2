@@ -47,16 +47,15 @@ async function uploadTask(successCallback: () => void) {
 }
 
 function setupNotification(task: Task) {
-    if (task.completed === 1) {
-        Notification.delete(task.id);
-    }
     if (task.reminder !== NULL_DATE) {
-        Notification.create({
-            id: task.id,
-            subject: task.title,
-            message: task.content,
-            sendAt: new Date(task.reminder),
-        });
+        // if the reminder is later than current time, only setup the notification
+        if (task.reminder > new Date().getTime() - 5000) {
+            Notification.create({
+                subject: task.title,
+                message: task.content,
+                sendAt: new Date(task.reminder),
+            });
+        }
     }
 }
 
