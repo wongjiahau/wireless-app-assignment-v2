@@ -95,16 +95,17 @@ export class TaskForm extends Component {
   }
 
   handlePickDate = async () => {
+    const date = this.state.task.reminder;
     try {
       const {action, year, month, day} = await DatePickerAndroid.open({
-        date: this.state.task.reminder || new Date(),
+        date: date || new Date(),
         minDate: new Date(1890, 0, 1),
         maxDate: new Date(3000, 0, 0) // Current date
       });
       if(action !== DatePickerAndroid.dismissedAction) {
         const {action, hour, minute} = await TimePickerAndroid.open({
-            hour: this.state.task.reminder ? this.state.task.reminder.getHours() : new Date().getHours(),
-            minute: this.state.task.reminder ? this.state.task.reminder.getMinutes() : new Date().getMinutes(),
+            hour:   date !== NULL_DATE ? date.getHours()   : new Date().getHours(),
+            minute: date !== NULL_DATE ? date.getMinutes() : new Date().getMinutes(),
             is24Hour: false, // Will display '2 PM'
         });
         if (action !== TimePickerAndroid.dismissedAction) {
