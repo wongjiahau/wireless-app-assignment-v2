@@ -65,6 +65,16 @@ export class TaskItem extends React.Component {
                 {this.props.reminder === NULL_DATE ? null :
                 <Text style={styles.subtitle}>{"🔔 " + formatDate(this.props.reminder)}</Text>}
                 <Button style={styles.buttons}
+                  large
+                  icon={{name: 'delete', type:'material-community'}}
+                  title='DELETE'
+                  buttonStyle={{
+                    backgroundColor: "#b22222",
+                    ...buttonStyle
+                  }} 
+                  onPress={this.props.handleDelete}
+                  />
+                <Button style={styles.buttons}
                     large
                     icon={{name: 'edit', type:'font-awesome'}}
                     title='EDIT'
@@ -78,16 +88,6 @@ export class TaskItem extends React.Component {
                     }}
                   />
 
-                <Button style={styles.buttons}
-                  large
-                  icon={{name: 'delete', type:'material-community'}}
-                  title='DELETE'
-                  buttonStyle={{
-                    backgroundColor: "#b22222",
-                    ...buttonStyle
-                  }} 
-                  onPress={this.props.handleDelete}
-                  />
 
                 <Button style={styles.buttons}
                   large
